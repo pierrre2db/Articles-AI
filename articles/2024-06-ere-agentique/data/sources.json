@@ -60,5 +60,56 @@
         }
       ]
     }
+  },
+  "risks": {
+    "security": {
+      "title": "Sécurité et confidentialité",
+      "mitigations": [
+        {
+          "type": "Chiffrement des données",
+          "content": "Mise en place d'un chiffrement de bout en bout pour toutes les données sensibles.",
+          "sources": [
+            {
+              "title": "Guide de sécurité des données",
+              "url": "https://example.com/security-guide",
+              "date": "2025-01-15"
+            }
+          ]
+        },
+        {
+          "type": "Contrôle d'accès",
+          "content": "Mise en place d'une politique stricte de contrôle d'accès basée sur les rôles (RBAC)."
+        }
+      ]
+    },
+    "ethics": {
+      "title": "Éthique et conformité",
+      "mitigations": [
+        {
+          "type": "Audit régulier",
+          "content": "Mise en place d'audits réguliers pour s'assurer de la conformité avec les réglementations en vigueur.",
+          "sources": [
+            {
+              "title": "Guide de conformité RGPD",
+              "url": "https://example.com/gdpr-guide",
+              "date": "2024-11-20"
+            }
+          ]
+        }
+      ]
+    },
+    "reliability": {
+      "title": "Fiabilité et résilience",
+      "mitigations": [
+        {
+          "type": "Sauvegarde",
+          "content": "Mise en place d'un système de sauvegarde automatique des données critiques."
+        },
+        {
+          "type": "Surveillance",
+          "content": "Surveillance continue des performances et disponibilité du système."
+        }
+      ]
+    }
   }
 }
