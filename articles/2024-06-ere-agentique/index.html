@@ -233,24 +233,24 @@
             <div class="card p-6">
                  <div class="space-y-4">
                     <div class="flex flex-col sm:flex-row justify-between items-center p-3 bg-gray-50 rounded-lg">
-                        <span class="font-semibold text-gray-700 mb-2 sm:mb-0 text-center sm:text-left">Finance : Automatisation du Service Client</span>
-                        <button class="gemini-button mt-2 sm:mt-0" onclick="exploreUseCase('finance')">Explorer ✨</button>
+                        <span class="font-semibold text-gray-700 mb-2 sm:mb-0 text-center sm:text-left">Marketing - Agents autonomes de campagnes personnalisées</span>
+                        <button class="gemini-button mt-2 sm:mt-0" onclick="exploreUseCase('agentic_marketing')">Explorer ✨</button>
                     </div>
                     <div class="flex flex-col sm:flex-row justify-between items-center p-3 bg-gray-50 rounded-lg">
-                        <span class="font-semibold text-gray-700 mb-2 sm:mb-0 text-center sm:text-left">Santé : Documentation Clinique Assistée</span>
-                        <button class="gemini-button mt-2 sm:mt-0" onclick="exploreUseCase('health')">Explorer ✨</button>
+                        <span class="font-semibold text-gray-700 mb-2 sm:mb-0 text-center sm:text-left">Support - Agents vocaux autonomes pour centres d'appel</span>
+                        <button class="gemini-button mt-2 sm:mt-0" onclick="exploreUseCase('agentic_call_center')">Explorer ✨</button>
                     </div>
                     <div class="flex flex-col sm:flex-row justify-between items-center p-3 bg-gray-50 rounded-lg">
-                        <span class="font-semibold text-gray-700 mb-2 sm:mb-0 text-center sm:text-left">Industrie : Maintenance Prédictive</span>
-                        <button class="gemini-button mt-2 sm:mt-0" onclick="exploreUseCase('industry')">Explorer ✨</button>
+                        <span class="font-semibold text-gray-700 mb-2 sm:mb-0 text-center sm:text-left">Systèmes multi-agents - Orchestration complexe</span>
+                        <button class="gemini-button mt-2 sm:mt-0" onclick="exploreUseCase('agentic_multi')">Explorer ✨</button>
                     </div>
                     <div class="flex flex-col sm:flex-row justify-between items-center p-3 bg-gray-50 rounded-lg">
-                        <span class="font-semibold text-gray-700 mb-2 sm:mb-0 text-center sm:text-left">Cybersécurité : Réponse aux Incidents</span>
-                        <button class="gemini-button mt-2 sm:mt-0" onclick="exploreUseCase('cyber')">Explorer ✨</button>
+                        <span class="font-semibold text-gray-700 mb-2 sm:mb-0 text-center sm:text-left">Web & achats - Agents navigateurs autonomes</span>
+                        <button class="gemini-button mt-2 sm:mt-0" onclick="exploreUseCase('agentic_web_navigation')">Explorer ✨</button>
                     </div>
-                     <div class="flex flex-col sm:flex-row justify-between items-center p-3 bg-gray-50 rounded-lg">
-                        <span class="font-semibold text-gray-700 mb-2 sm:mb-0 text-center sm:text-left">Commerce : Recommandation Personnalisée</span>
-                        <button class="gemini-button mt-2 sm:mt-0" onclick="exploreUseCase('retail')">Explorer ✨</button>
+                    <div class="flex flex-col sm:flex-row justify-between items-center p-3 bg-gray-50 rounded-lg">
+                        <span class="font-semibold text-gray-700 mb-2 sm:mb-0 text-center sm:text-left">Cybersécurité - Agents IA pour détection et réponse automatique</span>
+                        <button class="gemini-button mt-2 sm:mt-0" onclick="exploreUseCase('agentic_cybersecurity')">Explorer ✨</button>
                     </div>
                 </div>
             </div>
@@ -543,10 +543,22 @@
         // Charger les données depuis le fichier JSON
         async function loadAppData() {
             try {
+                console.log('Début du chargement des données...');
                 const response = await fetch('data/sources.json');
-                if (!response.ok) throw new Error('Erreur de chargement des données');
-                appData = await response.json();
-                console.log('Données chargées avec succès');
+                if (!response.ok) {
+                    console.error('Erreur HTTP:', response.status, response.statusText);
+                    throw new Error('Erreur de chargement des données');
+                }
+                const data = await response.json();
+                console.log('Données chargées avec succès:', data);
+                appData = data;
+                
+                // Vérifier la structure des données
+                if (appData.useCases) {
+                    console.log('Cas d\'usage disponibles:', Object.keys(appData.useCases));
+                } else {
+                    console.warn('Aucun cas d\'usage trouvé dans les données');
+                }
             } catch (error) {
                 console.error('Erreur lors du chargement des données:', error);
                 showError('Impossible de charger les données. Veuillez réessayer plus tard.');
@@ -622,16 +634,27 @@
 
         // Afficher un cas d'usage spécifique
         function exploreUseCase(useCaseKey) {
-            if (!appData.useCases || !appData.useCases[useCaseKey]) {
-                showError('Cas d\'usage non trouvé. Veuillez réessayer.');
+            console.log('Tentative d\'affichage du cas d\'usage:', useCaseKey);
+            console.log('Données disponibles:', appData);
+            
+            if (!appData || !appData.useCases) {
+                showError('Les données ne sont pas encore chargées. Veuillez réessayer.');
                 return;
             }
             
             const useCase = appData.useCases[useCaseKey];
+            if (!useCase) {
+                console.error('Cas d\'usage non trouvé pour la clé:', useCaseKey);
+                console.log('Clés disponibles:', Object.keys(appData.useCases));
+                showError('Cas d\'usage non trouvé. Veuillez réessayer.');
+                return;
+            }
+            
+            console.log('Cas d\'usage trouvé:', useCase);
             showModal(
-                `Exemple : ${useCase.title}`,
+                useCase.title,  // Utiliser directement le titre du cas d'usage
                 useCase.content,
-                useCase.sources
+                useCase.sources || []  // Assurez-vous que sources est un tableau
             );
         }
 
