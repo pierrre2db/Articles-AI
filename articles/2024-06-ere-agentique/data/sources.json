@@ -1,139 +1,62 @@
 {
   "useCases": {
-    "finance": {
-      "title": "Finance - Automatisation du Service Client",
-      "content": "L'assistant virtuel Erica de Bank of America démontre l'efficacité des agents IA dans la gestion des services financiers. En traitant plus de 1,5 milliard d'interactions client, Erica a permis de réduire les coûts de support de 40% tout en améliorant la satisfaction client de 35%.",
+    "agentic_marketing": {
+      "title": "Marketing - Agents autonomes de campagnes personnalisées",
+      "content": "Salesforce Agentforce permet de piloter intégralement des campagnes marketing (brief, segmentation, diffusion, optimisation) avec 66 % des requêtes traitées par agents IA, et 84 % des tickets clients gérés automatiquement.",
       "sources": [
         {
-          "title": "Bank of America's Erica Surpasses 1.5 Billion Interactions, Expands to Small Business",
-          "url": "https://newsroom.bankofamerica.com/content/newsroom/press-releases/2022/01/bank-of-america-s-erica-surpasses-1-5-billion-interactions-.html",
-          "date": "2022-01-11"
+          "title": "Salesforce predicts AI will bolster its market share",
+          "url": "https://www.theaustralian.com.au/business/growth-agenda/salesforce-predicts-ai-will-double-its-market-share/news-story/775f8baa29ea408378951a9b27d77459",
+          "date": "2025-05-28"
         },
         {
-          "title": "The AI-Powered Bank: How BofA's Erica Is Leading The Next Wave Of Banking Innovation",
-          "url": "https://www.forbes.com/sites/bernardmarr/2021/05/26/the-ai-powered-bank-how-bofas-erica-is-leading-the-next-wave-of-banking-innovation",
-          "date": "2021-05-26"
+          "title": "Salesforce Marketing Cloud Next includes Agentforce features",
+          "url": "https://martech.org/salesforce-agentforce-what-you-need-to-know/",
+          "date": "2025-06-01"
         }
       ]
     },
-    "health": {
-      "title": "Santé - Documentation Clinique Assistée",
-      "content": "Le système de santé Mass General Brigham a intégré un système de documentation clinique assistée par IA qui réduit de 60% le temps de documentation des médecins. Cette solution génère automatiquement des notes médicales à partir des conversations médecin-patient, permettant aux praticiens de se concentrer sur les soins directs.",
+    "agentic_call_center": {
+      "title": "Support - Agents vocaux autonomes pour centres d'appel",
+      "content": "Synthflow AI a levé 20 M$ en juin 2025. Ses agents vocaux IA, déployés sans code, répondent en <400 ms, gèrent + 600 000 appels/mois sur + 1 000 entreprises et améliorent la prise de rendez-vous ou support client.",
       "sources": [
         {
-          "title": "Mass General Brigham Launches AI-Powered Clinical Documentation Application",
-          "url": "https://www.massgeneralbrigham.org/en/about/newsroom/press-releases/mass-general-brigham-launches-ai-powered-clinical-documentation-application",
-          "date": "2023-04-04"
-        },
-        {
-          "title": "Reducing Clinician Burnout Through AI-Powered Documentation",
-          "url": "https://hms.harvard.edu/news/reducing-clinician-burnout-through-ai-powered-documentation",
-          "date": "2023-05-15"
+          "title": "Synthflow AI is bringing 'conversational' voice agents to call centers",
+          "url": "https://www.businessinsider.com/synthflow-ai-pitch-deck-funding-voice-2025-6",
+          "date": "2025-06-25"
         }
       ]
     },
-    "industry": {
-      "title": "Industrie - Maintenance Prédictive",
-      "content": "General Electric a déployé son système de maintenance prédictive basé sur l'IA dans plus de 50 usines, réduisant les temps d'arrêt imprévus de 30% et les coûts de maintenance de 25%. Leur plateforme analyse en temps réel les données des capteurs pour anticiper les défaillances d'équipements.",
+    "agentic_multi": {
+      "title": "Systèmes multi-agents - Orchestration complexe",
+      "content": "Salesforce publie Agentforce 3 en juin 2025 avec un Command Center pour superviser et orchestrer des chaînes d'agents, facilitant leur collaboration et scalabilité en entreprise.",
       "sources": [
         {
-          "title": "GE Digital's Predictive Maintenance Solution Drives 30% Reduction in Unplanned Downtime",
-          "url": "https://www.ge.com/digital/blog/ge-digitals-predictive-maintenance-solution-drives-30-reduction-unplanned-downtime",
-          "date": "2022-09-14"
+          "title": "Salesforce Launches Agentforce 3 to Solve the Biggest Blockers to Scaling AI Agents",
+          "url": "https://www.salesforce.com/news/press-releases/2025/06/23/agentforce-3-announcement/",
+          "date": "2025-06-23"
         }
       ]
     },
-    "cyber": {
-      "title": "Cybersécurité - Réponse aux Incidents",
-      "content": "La plateforme de cybersécurité autonome d'entreprise de Darktrace utilise l'IA pour détecter et neutraliser les cybermenaces en temps réel. Elle a démontré une capacité à stopper les attaques en moyenne en 1,2 seconde, bien avant qu'elles ne puissent causer des dommages significatifs.",
+    "agentic_web_navigation": {
+      "title": "Web & achats - Agents navigateurs autonomes",
+      "content": "Project Mariner (Google) et OpenAI Operator lancés en 2025 : agents capables de naviguer, remplir des formulaires, programmer des rendez-vous ou réaliser des achats via navigateur, de manière autonome.",
       "sources": [
         {
-          "title": "Darktrace AI Stops Ransomware Attack in 1.2 Seconds",
-          "url": "https://www.darktrace.com/en/press/darktrace-ai-stops-ransomware-attack-in-1-2-seconds/",
-          "date": "2023-03-21"
-        },
-        {
-          "title": "The Rise of Autonomous Response Technology in Cybersecurity",
-          "url": "https://www.forbes.com/sites/forbestechcouncil/2023/02/07/the-rise-of-autonomous-response-technology-in-cybersecurity",
-          "date": "2023-02-07"
+          "title": "AI Agents: from co-pilot to autopilot",
+          "url": "https://www.ft.com/content/3e862e23-6e2c-4670-a68c-e204379fe01f",
+          "date": "2025-05-30"
         }
       ]
     },
-    "retail": {
-      "title": "Commerce - Recommandation Personnalisée",
-      "content": "Klarna a déployé un assistant d'achat IA qui a généré une augmentation de 30% des ventes croisées et une réduction de 40% de l'abandon de panier. Le système analyse en temps réel le comportement des utilisateurs pour proposer des recommandations hautement personnalisées.",
+    "agentic_cybersecurity": {
+      "title": "Cybersécurité - Agents IA pour détection et réponse automatique",
+      "content": "Salesforce et d'autres adopteurs intègrent des agents capables de détecter les indicateurs de compromission et neutraliser les menaces en quasi‑temps réel, réduisant l'impact des ransomwares.",
       "sources": [
         {
-          "title": "Klarna's AI Shopping Assistant Drives 30% Increase in Cross-Selling",
-          "url": "https://www.klarna.com/international/press/klarnas-ai-shopping-assistant-drives-30-increase-in-cross-selling/",
-          "date": "2023-01-18"
-        },
-        {
-          "title": "How AI is Transforming Retail: The Klarna Case Study",
-          "url": "https://www.mckinsey.com/industries/retail/our-insights/how-ai-is-transforming-retail-the-klarna-case-study",
-          "date": "2023-03-09"
-        }
-      ]
-    }
-  },
-  "risks": {
-    "toolPoisoning": {
-      "title": "Empoisonnement d'Outil / Injection de Prompt",
-      "mitigations": [
-        {
-          "type": "Technique",
-          "content": "Valider et assainir rigoureusement toutes les métadonnées (descriptions, paramètres) provenant de serveurs externes. Supprimer tout ce qui ressemble à une instruction avant de le présenter au LLM."
-        },
-        {
-          "type": "Politique",
-          "content": "N'autoriser que les serveurs MCP provenant d'un registre d'entreprise approuvé et vérifié.",
-          "sources": [
-            {
-              "title": "OWASP Top 10 for Large Language Model Applications",
-              "url": "https://owasp.org/www-project-top-10-for-large-language-model-applications/",
-              "date": "2023-09-01"
-            }
-          ]
-        }
-      ]
-    },
-    "rugPulls": {
-      "title": "Rug Pulls (Changement de fonctionnalité malveillant)",
-      "mitigations": [
-        {
-          "type": "Technique",
-          "content": "Mettre en place un 'verrouillage de version' (version pinning) pour les outils. Utiliser des signatures cryptographiques pour vérifier l'intégrité des serveurs et empêcher les mises à jour non autorisées.",
-          "sources": [
-            {
-              "title": "NIST Special Publication 1800-204c: Secure Software Supply Chain",
-              "url": "https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.04282020.pdf",
-              "date": "2020-06-01"
-            }
-          ]
-        },
-        {
-          "type": "Politique",
-          "content": "Exiger un processus de ré-approbation par un administrateur pour toute mise à jour de version d'un outil connecté."
-        }
-      ]
-    },
-    "biasEthics": {
-      "title": "Biais & Éthique",
-      "mitigations": [
-        {
-          "type": "Technique",
-          "content": "Mettre en œuvre des audits réguliers des décisions de l'agent pour détecter les biais. Utiliser des ensembles de données de test diversifiés pour évaluer l'équité des résultats.",
-          "sources": [
-            {
-              "title": "NIST AI Risk Management Framework (AI RMF 1.0)",
-              "url": "https://www.nist.gov/itl/ai-risk-management-framework",
-              "date": "2023-01-26"
-            }
-          ]
-        },
-        {
-          "type": "Politique",
-          "content": "Établir un comité d'éthique de l'IA chargé d'examiner et de valider les cas d'usage à haut risque. Adopter des cadres formels comme le NIST AI RMF."
+          "title": "Winning the war on ransomware with AI: Four real-world use cases",
+          "url": "https://www.theregister.com/2025/06/10/delinea_winning_ai_ransomware_war/",
+          "date": "2025-06-10"
         }
       ]
     }
