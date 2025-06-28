@@ -1,0 +1,22 @@
+# Configuration de base pour GitHub Pages
+baseurl: "/Articles-AI"  # Le nom de votre dépôt
+url: "https://pierrre2db.github.io"  # Votre nom d'utilisateur GitHub
+
+title: Articles IA
+email: your-email@example.com
+description: >- # ceci signifie d'ignorer les sauts de ligne jusqu'à "baseurl:"
+  Articles sur l'IA et le développement
+twitter_username: yourtwitter
+github_username:  pierrre2db
+
+# Build settings
+markdown: kramdown
+theme: minima
+plugins:
+  - jekyll-feed
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules/
+  - vendor/
