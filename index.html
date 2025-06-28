@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infographie : L'Ère de l'IA Agentique</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f8ff;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .kpi-card {
+            background: linear-gradient(135deg, #79A7D3, #3A6B8A);
+            color: white;
+        }
+        .section-title {
+            color: #003F5C;
+        }
+        .card {
+            background-color: white;
+            border-radius: 1rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .flow-line {
+            position: relative;
+            border-left: 2px dashed #79A7D3;
+        }
+        .flow-dot {
+            position: absolute;
+            left: -11px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: #3A6B8A;
+            border: 4px solid #f0f8ff;
+        }
+        .flow-arrow::after {
+            content: '→';
+            font-size: 2rem;
+            color: #3A6B8A;
+        }
+        .gemini-button {
+            background-color: #A3CEF1;
+            color: #003F5C;
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            transition: all 0.2s ease-in-out;
+            border: 2px solid transparent;
+        }
+        .gemini-button:hover {
+            background-color: #79A7D3;
+            color: white;
+            transform: scale(1.05);
+        }
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .modal-overlay.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            transform: scale(0.95);
+            transition: transform 0.3s ease;
+        }
+        .modal-overlay.visible .modal-content {
+            transform: scale(1);
+        }
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3A6B8A;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 2rem auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+    
+</head>
+<body class="antialiased text-gray-800">
+
+    <header class="bg-white/80 backdrop-blur-md sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-6 py-3">
+            <div class="flex items-center justify-between">
+                <h1 class="text-xl md:text-2xl font-bold section-title">L'Ère Agentique</h1>
+                <div class="hidden md:flex space-x-6 text-sm font-medium">
+                    <a href="#market" class="text-gray-600 hover:text-[#003F5C]">Marché</a>
+                    <a href="#mcp" class="text-gray-600 hover:text-[#003F5C]">MCP</a>
+                    <a href="#usecases" class="text-gray-600 hover:text-[#003F5C]">Cas d'Usage</a>
+                    <a href="#stack" class="text-gray-600 hover:text-[#003F5C]">Architecture</a>
+                    <a href="#risks" class="text-gray-600 hover:text-[#003F5C]">Risques</a>
+                    <a href="#roadmap" class="text-gray-600 hover:text-[#003F5C]">Feuille de Route</a>
+                    <a href="#contact" class="text-gray-600 hover:text-[#003F5C]">Contact</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto p-4 md:p-8">
+
+        <section class="text-center mb-16">
+            <h2 class="text-4xl md:text-5xl font-extrabold section-title mb-4">L'Ère de l'IA Agentique : Une Révolution en Marche</h2>
+            <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
+                L'intelligence artificielle dépasse la simple réponse pour devenir un acteur proactif et autonome. Découvrez les données clés qui façonnent cette transformation stratégique majeure.
+            </p>
+            <p class="text-md text-gray-500 max-w-3xl mx-auto mt-4">
+                Une analyse proposée par <strong class="font-semibold">Pierre de Dobbeleer</strong> pour la société <strong class="font-semibold">Strartai</strong>. Pour toute question, contactez-nous à <a href="mailto:contact.stratai@gmail.com" class="text-[#3A6B8A] hover:underline">contact.stratai@gmail.com</a>.
+            </p>
+        </section>
+
+        <section id="market" class="mb-16">
+            <h3 class="text-3xl font-bold text-center section-title mb-8">Une Croissance Explosive du Marché</h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                <div class="kpi-card card p-6 text-center">
+                    <div class="text-5xl font-extrabold">>40%</div>
+                    <div class="mt-2 text-lg font-medium">TCAC Prévu (2025-2030)</div>
+                    <p class="text-sm opacity-80 mt-2">Un consensus écrasant des analystes sur une croissance extraordinairement rapide.</p>
+                </div>
+                <div class="kpi-card card p-6 text-center">
+                    <div class="text-5xl font-extrabold">~52 Md$</div>
+                    <div class="mt-2 text-lg font-medium">Marché Estimé en 2030</div>
+                     <p class="text-sm opacity-80 mt-2">Partant de ~7 Md$ en 2025, le marché est sur une trajectoire d'expansion massive.</p>
+                </div>
+                <div class="kpi-card card p-6 text-center">
+                    <div class="text-5xl font-extrabold">82%</div>
+                    <div class="mt-2 text-lg font-medium">D'Adoption d'ici 3 Ans</div>
+                     <p class="text-sm opacity-80 mt-2">Une intention d'adoption quasi universelle, marquant un point d'inflexion technologique.</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="card p-6">
+                    <h4 class="text-xl font-bold text-center section-title mb-4">Projection de la Taille du Marché (Milliards USD)</h4>
+                    <div class="chart-container">
+                        <canvas id="marketGrowthChart"></canvas>
+                    </div>
+                     <p class="text-sm text-gray-500 mt-4 text-center">Ce graphique illustre la croissance projetée du marché de l'IA agentique, montrant une expansion rapide et soutenue. La convergence des prévisions de différentes sources renforce la certitude de cette tendance haussière.</p>
+                </div>
+                <div class="card p-6">
+                    <h4 class="text-xl font-bold text-center section-title mb-4">Part de Marché par Région</h4>
+                     <div class="chart-container">
+                        <canvas id="regionalMarketShareChart"></canvas>
+                    </div>
+                     <p class="text-sm text-gray-500 mt-4 text-center">L'Amérique du Nord domine actuellement, mais la région Asie-Pacifique est identifiée comme celle connaissant la croissance la plus rapide, signalant une mondialisation de l'innovation agentique.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="mcp" class="mb-16">
+             <h3 class="text-3xl font-bold text-center section-title mb-2">Le Moteur de l'Écosystème : Le Model Context Protocol (MCP)</h3>
+             <p class="text-lg text-gray-600 max-w-3xl mx-auto text-center mb-8">Le MCP est le standard ouvert qui résout la fragmentation, agissant comme le "port USB-C de l'IA" pour une interopérabilité universelle.</p>
+             
+            <div class="card p-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div class="text-center">
+                        <h4 class="text-2xl font-bold text-red-600 mb-4">Avant le MCP : Complexité M×N</h4>
+                        <p class="text-gray-600 mb-4">Chaque connexion entre un modèle et un outil nécessitait une intégration sur mesure, créant un enchevêtrement coûteux et lent.</p>
+                        <div class="flex justify-around items-center p-4 bg-red-50 rounded-lg">
+                            <div class="flex flex-col items-center space-y-2">
+                                <div class="w-12 h-12 bg-red-200 rounded-full flex items-center justify-center font-bold">M1</div>
+                                <div class="w-12 h-12 bg-red-200 rounded-full flex items-center justify-center font-bold">M2</div>
+                            </div>
+                            <div class="text-4xl text-red-500 font-bold">×</div>
+                            <div class="flex flex-col items-center space-y-2">
+                                <div class="w-12 h-12 bg-blue-200 rounded-full flex items-center justify-center font-bold">T1</div>
+                                <div class="w-12 h-12 bg-blue-200 rounded-full flex items-center justify-center font-bold">T2</div>
+                            </div>
+                        </div>
+                        <p class="mt-4 font-bold text-lg">Résultat : 4 intégrations complexes à maintenir.</p>
+                    </div>
+
+                    <div class="text-center">
+                         <h4 class="text-2xl font-bold text-green-600 mb-4">Avec le MCP : Simplicité M+N</h4>
+                        <p class="text-gray-600 mb-4">En standardisant la connexion, chaque modèle et outil devient instantanément compatible avec tout l'écosystème.</p>
+                         <div class="flex justify-around items-center p-4 bg-green-50 rounded-lg">
+                            <div class="flex flex-col items-center space-y-2">
+                                <div class="w-12 h-12 bg-red-200 rounded-full flex items-center justify-center font-bold">M1</div>
+                                <div class="w-12 h-12 bg-red-200 rounded-full flex items-center justify-center font-bold">M2</div>
+                            </div>
+                            <div class="text-4xl text-green-500 font-bold">+</div>
+                            <div class="flex flex-col items-center space-y-2">
+                                <div class="w-12 h-12 bg-blue-200 rounded-full flex items-center justify-center font-bold">T1</div>
+                                <div class="w-12 h-12 bg-blue-200 rounded-full flex items-center justify-center font-bold">T2</div>
+                            </div>
+                        </div>
+                         <p class="mt-4 font-bold text-lg">Résultat : 4 composants simples et interopérables.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="usecases" class="mb-16">
+            <h3 class="text-3xl font-bold text-center section-title mb-2">L'Impact Concret : Des Résultats Quantifiables</h3>
+            <p class="text-lg text-gray-600 max-w-3xl mx-auto text-center mb-8">L'IA agentique n'est pas une promesse future ; elle génère déjà un retour sur investissement significatif dans de multiples secteurs. Explorez des exemples concrets ci-dessous.</p>
+            <div class="card p-6">
+                 <div class="space-y-4">
+                    <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                        <span class="font-semibold text-gray-700">Réduction Temps de Documentation (Santé) : 60%</span>
+                        <button class="gemini-button" onclick="exploreUseCase('Réduction du temps de documentation en santé')">Explorer ✨</button>
+                    </div>
+                    <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                        <span class="font-semibold text-gray-700">Neutralisation des Menaces (Cyber) : 92%</span>
+                        <button class="gemini-button" onclick="exploreUseCase('Neutralisation des menaces de cybersécurité')">Explorer ✨</button>
+                    </div>
+                    <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                        <span class="font-semibold text-gray-700">Réduction Temps d'Arrêt (Industrie) : 30%</span>
+                        <button class="gemini-button" onclick="exploreUseCase('Réduction du temps d\'arrêt dans l\'industrie')">Explorer ✨</button>
+                    </div>
+                     <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                        <span class="font-semibold text-gray-700">Réduction Abandon Panier (Détail) : 40%</span>
+                        <button class="gemini-button" onclick="exploreUseCase('Réduction de l\'abandon de panier dans le commerce de détail')">Explorer ✨</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="stack" class="mb-16">
+            <h3 class="text-3xl font-bold text-center section-title mb-2">Clarifier l'Architecture de l'IA Moderne</h3>
+            <p class="text-lg text-gray-600 max-w-3xl mx-auto text-center mb-8">Comprendre la pile technologique est essentiel pour prendre des décisions éclairées. L'IA agentique et le RAG ne sont pas des concurrents, mais des composants d'un tout plus grand.</p>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="card p-8">
+                    <h4 class="text-xl font-bold text-center section-title mb-6">La Pile Architecturale de l'IA</h4>
+                    <div class="space-y-4">
+                        <div class="p-4 bg-[#6883BA] text-white rounded-lg text-center shadow">
+                            <h5 class="font-bold">Couche 4 : Outils & Données</h5>
+                            <p class="text-sm opacity-90">APIs, bases de données, fichiers, ressources externes...</p>
+                        </div>
+                        <div class="p-4 bg-[#79A7D3] text-white rounded-lg text-center shadow">
+                            <h5 class="font-bold">Couche 3 : Connectivité (MCP)</h5>
+                             <p class="text-sm opacity-90">Protocole standard pour la communication agent-outil.</p>
+                        </div>
+                        <div class="p-4 bg-[#3A6B8A] text-white rounded-lg text-center shadow">
+                            <h5 class="font-bold">Couche 2 : Orchestration (ex: LangChain)</h5>
+                             <p class="text-sm opacity-90">Framework pour construire la logique interne de l'agent.</p>
+                        </div>
+                        <div class="p-4 bg-[#003F5C] text-white rounded-lg text-center shadow">
+                            <h5 class="font-bold">Couche 1 : Modèle (LLM)</h5>
+                             <p class="text-sm opacity-90">Le "cerveau" de l'IA (GPT, Claude, Gemini...).</p>
+                        </div>
+                    </div>
+                     <p class="text-sm text-gray-500 mt-6 text-center">Cette architecture en couches montre comment des technologies comme LangChain et le MCP sont complémentaires, opérant à des niveaux d'abstraction différents pour construire des systèmes IA robustes.</p>
+                </div>
+                 <div class="card p-8">
+                    <h4 class="text-xl font-bold text-center section-title mb-6">Action vs. Information : Agentique et RAG</h4>
+                    <div class="flex flex-col space-y-4">
+                        <div class="border-l-4 border-[#3A6B8A] p-4 bg-blue-50 rounded-r-lg">
+                           <h5 class="font-bold section-title">RAG (Réactif)</h5>
+                           <p class="text-sm text-gray-600">Améliore la qualité des réponses en fournissant un contexte précis. <strong class="text-[#003F5C]">Son but est d'informer.</strong></p>
+                        </div>
+                        <div class="self-center my-4 flow-arrow"></div>
+                         <div class="border-l-4 border-[#79A7D3] p-4 bg-blue-50 rounded-r-lg">
+                           <h5 class="font-bold section-title">IA Agentique (Proactif)</h5>
+                           <p class="text-sm text-gray-600">Utilise des outils (y compris le RAG) pour planifier et exécuter des tâches. <strong class="text-[#003F5C]">Son but est d'agir.</strong></p>
+                        </div>
+                    </div>
+                     <p class="text-sm text-gray-500 mt-6 text-center">Un agent IA utilise le RAG comme un outil pour obtenir des informations fiables avant de décider des prochaines actions à entreprendre. C'est le passage de "l'IA qui sait" à "l'IA qui fait".</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="risks" class="mb-16">
+            <h3 class="text-3xl font-bold text-center section-title mb-2">Naviguer le Double Impératif : Sécurité & Éthique</h3>
+             <p class="text-lg text-gray-600 max-w-3xl mx-auto text-center mb-8">La puissance de l'autonomie s'accompagne de risques. Une gouvernance rigoureuse et une architecture de sécurité adaptée sont non négociables.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="card p-6">
+                    <h4 class="text-lg font-bold section-title mb-2">☣️ Empoisonnement d'Outil</h4>
+                    <p class="text-sm text-gray-600">Des instructions malveillantes cachées dans les métadonnées d'un outil pour tromper l'IA et exfiltrer des données.</p>
+                </div>
+                <div class="card p-6">
+                    <h4 class="text-lg font-bold section-title mb-2">🎭 "Rug Pulls"</h4>
+                    <p class="text-sm text-gray-600">Un outil initialement bénin devient malveillant après avoir obtenu la confiance et les permissions de l'utilisateur.</p>
+                </div>
+                <div class="card p-6">
+                    <h4 class="text-lg font-bold section-title mb-2">👥 "Tool Shadowing"</h4>
+                    <p class="text-sm text-gray-600">Un outil malveillant imite le nom d'un outil légitime pour intercepter et détourner les actions de l'agent.</p>
+                </div>
+                <div class="card p-6">
+                    <h4 class="text-lg font-bold section-title mb-2">⚖️ Biais & Éthique</h4>
+                    <p class="text-sm text-gray-600">Risques de discrimination, violation de la vie privée et opacité des décisions si non gérés de manière proactive.</p>
+                </div>
+            </div>
+            <div class="mt-8 text-center bg-white p-6 rounded-xl shadow-lg">
+                <p class="text-lg text-gray-700">La solution évolue d'un <span class="font-bold text-[#003F5C]">"Zero Trust" basé sur l'identité</span> vers un <span class="font-bold text-[#6883BA]">Zero Trust comportemental</span> : ce n'est pas seulement qui vous êtes, mais si ce que vous faites est normal et attendu.</p>
+                 <button class="gemini-button mt-4" onclick="brainstormSolutions()">Brainstormer des Solutions ✨</button>
+            </div>
+        </section>
+
+        <section id="roadmap" class="mb-16">
+            <h3 class="text-3xl font-bold text-center section-title mb-8">Votre Feuille de Route pour l'Adoption</h3>
+            <div class="relative">
+                <div class="border-l-2 border-dashed border-[#79A7D3] absolute h-full top-0 left-4 md:left-1/2 md:-translate-x-1/2"></div>
+                
+                <div class="mb-8 flex md:justify-end md:pr-8">
+                    <div class="w-full md:w-5/12 pl-12 md:pl-0 md:text-right relative">
+                        <div class="flow-dot absolute top-0 -left-9 md:left-auto md:-right-[38px]"></div>
+                        <h4 class="text-xl font-bold section-title">1. Moderniser les Fondations</h4>
+                        <p class="text-gray-600">Assurez la qualité et l'accessibilité des données. Un agent ne peut agir que sur ce qu'il peut voir clairement.</p>
+                    </div>
+                </div>
+
+                <div class="mb-8 flex md:justify-start md:pl-8">
+                     <div class="w-full md:w-5/12 pl-12 md:pl-0 relative">
+                        <div class="flow-dot absolute top-0 -left-9 md:left-[-38px]"></div>
+                        <h4 class="text-xl font-bold section-title">2. Identifier le Cas d'Usage</h4>
+                        <p class="text-gray-600">Partez d'un vrai problème métier, pas de la technologie. Impliquez les utilisateurs finaux dès le début.</p>
+                    </div>
+                </div>
+
+                <div class="mb-8 flex md:justify-end md:pr-8">
+                     <div class="w-full md:w-5/12 pl-12 md:pl-0 md:text-right relative">
+                        <div class="flow-dot absolute top-0 -left-9 md:left-auto md:-right-[38px]"></div>
+                        <h4 class="text-xl font-bold section-title">3. Définir des Métriques Claires</h4>
+                        <p class="text-gray-600">Qu'est-ce que le succès ? Définissez des objectifs SMART pour mesurer le ROI et justifier l'investissement.</p>
+                    </div>
+                </div>
+
+                <div class="mb-8 flex md:justify-start md:pl-8">
+                    <div class="w-full md:w-5/12 pl-12 md:pl-0 relative">
+                        <div class="flow-dot absolute top-0 -left-9 md:left-[-38px]"></div>
+                        <h4 class="text-xl font-bold section-title">4. Lancer un Pilote Contrôlé</h4>
+                        <p class="text-gray-600">Testez, apprenez et réduisez les risques sur un périmètre limité avant de passer à l'échelle.</p>
+                    </div>
+                </div>
+                 <div class="mb-8 flex md:justify-end md:pr-8">
+                     <div class="w-full md:w-5/12 pl-12 md:pl-0 md:text-right relative">
+                        <div class="flow-dot absolute top-0 -left-9 md:left-auto md:-right-[38px]"></div>
+                        <h4 class="text-xl font-bold section-title">5. Mettre en Place la Gouvernance</h4>
+                        <p class="text-gray-600">Déployez des outils de supervision, auditez les actions et formez les équipes à la collaboration homme-machine.</p>
+                    </div>
+                </div>
+                 <div class="flex md:justify-start md:pl-8">
+                     <div class="w-full md:w-5/12 pl-12 md:pl-0 relative">
+                        <div class="flow-dot absolute top-0 -left-9 md:left-[-38px]"></div>
+                        <h4 class="text-xl font-bold section-title">6. Itérer et Mettre à l'Échelle</h4>
+                        <p class="text-gray-600">Le déploiement est un début. Surveillez en continu, améliorez et étendez progressivement.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+         <section class="text-center mt-16 card kpi-card p-8">
+            <h3 class="text-3xl font-extrabold mb-4">La Leçon Stratégique Finale</h3>
+            <p class="text-xl max-w-4xl mx-auto mb-2">
+                Plus de 40% des projets d'IA agentique pourraient échouer non pas à cause de la technologie, mais d'une <strong class="underline decoration-wavy">stratégie défaillante</strong>.
+            </p>
+            <p class="text-lg max-w-4xl mx-auto">
+                Le succès ne sera pas déterminé par la puissance du modèle, mais par la <strong class="font-black">rigueur de la mise en œuvre</strong>. Partez d'un problème métier, prouvez la valeur, gérez les risques. La discipline stratégique est le facteur clé de succès.
+            </p>
+        </section>
+
+        <section id="contact" class="mb-16 mt-16">
+            <h3 class="text-3xl font-bold text-center section-title mb-8">Nous Contacter</h3>
+            <div class="card p-8 max-w-2xl mx-auto text-center">
+                <h4 class="text-2xl font-bold section-title mb-4">Strartai</h4>
+                <p class="text-lg text-gray-700">Cette analyse a été rédigée par :</p>
+                <p class="text-xl font-semibold text-[#3A6B8A] my-2">Pierre de Dobbeleer</p>
+                <p class="text-lg text-gray-700 mt-4">Pour toute question, demande d'information ou opportunité de collaboration, n'hésitez pas à nous écrire.</p>
+                <a href="mailto:contact.stratai@gmail.com" class="mt-6 inline-block bg-[#003F5C] text-white font-bold py-3 px-6 rounded-lg hover:bg-[#3A6B8A] transition-colors">
+                    contact.stratai@gmail.com
+                </a>
+            </div>
+        </section>
+
+    </main>
+    
+    <div id="gemini-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="flex justify-between items-center mb-4">
+                <h3 id="modal-title" class="text-2xl font-bold section-title">Exploration</h3>
+                <button onclick="closeModal()" class="text-gray-500 hover:text-gray-800 text-2xl font-bold">&times;</button>
+            </div>
+            <div id="modal-body">
+                <div class="loader"></div>
+            </div>
+        </div>
+    </div>
+
+
+    <footer class="text-center p-6 mt-8">
+        <p class="text-sm text-gray-500">Infographie générée à partir du rapport "L'Ère Agentique : Analyse Stratégique".</p>
+    </footer>
+
+    <script>
+        const brilliantBlues = ['#003F5C', '#3A6B8A', '#79A7D3', '#6883BA', '#A3CEF1'];
+        const brilliantBluesReversed = [...brilliantBlues].reverse();
+
+        const processLabels = (labels) => {
+            const maxLen = 16;
+            return labels.map(label => {
+                if (label.length <= maxLen) {
+                    return label;
+                }
+                const words = label.split(' ');
+                const lines = [];
+                let currentLine = '';
+                words.forEach(word => {
+                    if ((currentLine + ' ' + word).trim().length > maxLen) {
+                        lines.push(currentLine.trim());
+                        currentLine = word;
+                    } else {
+                        currentLine = (currentLine + ' ' + word).trim();
+                    }
+                });
+                lines.push(currentLine.trim());
+                return lines;
+            });
+        };
+        
+        const tooltipTitleCallback = (tooltipItems) => {
+            const item = tooltipItems[0];
+            let label = item.chart.data.labels[item.dataIndex];
+            if (Array.isArray(label)) {
+              return label.join(' ');
+            } else {
+              return label;
+            }
+        };
+        
+        const defaultTooltipOptions = {
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        title: tooltipTitleCallback
+                    }
+                }
+            }
+        };
+
+        const marketGrowthCtx = document.getElementById('marketGrowthChart')?.getContext('2d');
+        if (marketGrowthCtx) {
+            new Chart(marketGrowthCtx, {
+                type: 'line',
+                data: {
+                    labels: ['2025', '2026', '2027', '2028', '2029', '2030'],
+                    datasets: [
+                    {
+                        label: 'Mordor Intelligence',
+                        data: [7.28, 10.3, 14.6, 20.7, 29.3, 41.32],
+                        borderColor: brilliantBlues[1],
+                        backgroundColor: 'rgba(58, 107, 138, 0.1)',
+                        fill: true,
+                        tension: 0.4
+                    },
+                    {
+                        label: 'MarketsandMarkets',
+                        data: [7.84, 11.5, 16.8, 24.6, 35.9, 52.62],
+                        borderColor: brilliantBlues[2],
+                        backgroundColor: 'rgba(121, 167, 211, 0.1)',
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: defaultTooltipOptions.plugins,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Milliards USD'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        const regionalMarketShareCtx = document.getElementById('regionalMarketShareChart')?.getContext('2d');
+        if (regionalMarketShareCtx) {
+            new Chart(regionalMarketShareCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Amérique du Nord', 'Asie-Pacifique', 'Europe', 'Reste du Monde'],
+                    datasets: [{
+                        label: 'Part de Marché',
+                        data: [40.1, 25, 20, 14.9],
+                        backgroundColor: brilliantBlues,
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        ...defaultTooltipOptions.plugins,
+                        legend: {
+                            position: 'bottom',
+                        }
+                    }
+                }
+            });
+        }
+        
+        const modal = document.getElementById('gemini-modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalBody = document.getElementById('modal-body');
+        
+        function showModal(title) {
+            modalTitle.textContent = title;
+            modalBody.innerHTML = '<div class="loader"></div>';
+            modal.classList.add('visible');
+        }
+
+        function closeModal() {
+            modal.classList.remove('visible');
+        }
+        
+        modal.addEventListener('click', (event) => {
+            if (event.target === modal) {
+                closeModal();
+            }
+        });
+
+        async function callGeminiAPI(prompt) {
+            let chatHistory = [];
+            chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+            const payload = { contents: chatHistory };
+            const apiKey = ""
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const result = await response.json();
+                if (result.candidates && result.candidates.length > 0 &&
+                    result.candidates[0].content && result.candidates[0].content.parts &&
+                    result.candidates[0].content.parts.length > 0) {
+                    return result.candidates[0].content.parts[0].text;
+                } else {
+                    console.error("Gemini API response format is unexpected:", result);
+                    return "Désolé, la réponse de l'IA n'a pas pu être traitée. Veuillez réessayer.";
+                }
+            } catch (error) {
+                console.error("Error calling Gemini API:", error);
+                return "Une erreur de communication avec le service d'IA est survenue. Veuillez vérifier votre connexion et réessayer.";
+            }
+        }
+        
+        function formatGeminiResponse(text) {
+             return text
+                .replace(/^### (.*$)/gm, '<h4 class="text-lg font-bold section-title mt-4 mb-2">$1</h4>')
+                .replace(/^\* \*\*(.*):\*\*/gm, '<p class="mt-2"><strong>$1:</strong>')
+                .replace(/^\* (.*$)/gm, '<li class="pl-4 list-disc ml-4">$1</li>')
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                .replace(/\n/g, '<br>');
+        }
+
+        async function exploreUseCase(useCase) {
+            const title = `Exemple : ${useCase}`;
+            showModal(title);
+            const prompt = `Vous êtes un stratège d'affaires spécialisé en IA. Pour le cas d'usage "${useCase}", rédigez un exemple concret et factuel. Basez votre exemple sur des données et des cas réels, comme ceux documentés (par exemple, Siemens pour l'industrie, H&M pour le détail, Darktrace pour la cybersécurité). Soyez précis, professionnel, et allez directement au contenu sans phrase d'introduction. (environ 100 mots).`;
+            const result = await callGeminiAPI(prompt);
+            modalBody.innerHTML = `<p>${formatGeminiResponse(result)}</p>`;
+        }
+
+        async function brainstormSolutions() {
+            const title = 'Brainstorming de Solutions';
+            showModal(title);
+            const prompt = `Vous êtes un expert en cybersécurité et en éthique de l'IA. Pour les risques suivants liés aux agents IA : "Empoisonnement d'Outil", "Rug Pulls d'outils", "Tool Shadowing", et "Biais & Éthique", proposez des stratégies d'atténuation (mélange de solutions techniques et politiques). Présentez la réponse directement en utilisant le format Markdown avec des titres pour chaque risque, sans aucune phrase d'introduction.`;
+            const result = await callGeminiAPI(prompt);
+            modalBody.innerHTML = formatGeminiResponse(result);
+        }
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+# Fichiers de configuration sensibles
+config.js
+
+# Fichiers système
+.DS_Store
+
+# Dossiers de dépendances
+node_modules/
+
+# Fichiers de build
+dist/
+build/
+
+# Fichiers d'environnement
+.env
+.env.local
+.env.*.local
