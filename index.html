@@ -3,619 +3,463 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Infographie : L'Ère de l'IA Agentique</title>
+    <title>StratAI Blog - Intelligence Artificielle & Innovation</title>
+    <meta name="description" content="Blog technique de Pierre de Dobbeleer sur l'IA agentique, le machine learning et les technologies émergentes.">
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f0f8ff;
         }
-        .chart-container {
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .article-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
-            width: 100%;
-            height: 300px;
-            max-height: 400px;
+            overflow: hidden;
         }
-        @media (min-width: 768px) {
-            .chart-container {
-                height: 350px;
-            }
-        }
-        .kpi-card {
-            background: linear-gradient(135deg, #79A7D3, #3A6B8A);
-            color: white;
-        }
-        .section-title {
-            color: #003F5C;
-        }
-        .card {
-            background-color: white;
-            border-radius: 1rem;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-        }
-        .flow-line {
-            position: relative;
-            border-left: 2px dashed #79A7D3;
-        }
-        .flow-dot {
+
+        .article-card::before {
+            content: '';
             position: absolute;
-            left: -11px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background-color: #3A6B8A;
-            border: 4px solid #f0f8ff;
-        }
-        .flow-arrow::after {
-            content: '→';
-            font-size: 2rem;
-            color: #3A6B8A;
-        }
-        .gemini-button {
-            background-color: #A3CEF1;
-            color: #003F5C;
-            font-weight: 600;
-            padding: 0.5rem 1rem;
-            border-radius: 9999px;
-            transition: all 0.2s ease-in-out;
-            border: 2px solid transparent;
-        }
-        .gemini-button:hover {
-            background-color: #79A7D3;
-            color: white;
-            transform: scale(1.05);
-        }
-        .modal-overlay {
-            position: fixed;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background-color: rgba(0, 0, 0, 0.5);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
             opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
+            transition: opacity 0.3s;
+            z-index: 1;
         }
-        .modal-overlay.visible {
+
+        .article-card:hover::before {
             opacity: 1;
-            visibility: visible;
         }
-        .modal-content {
-            background-color: white;
-            padding: 2rem;
-            border-radius: 1rem;
-            max-width: 600px;
-            width: 90%;
-            max-height: 80vh;
-            overflow-y: auto;
-            transform: scale(0.95);
-            transition: transform 0.3s ease;
+
+        .article-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.15);
         }
-        .modal-overlay.visible .modal-content {
-            transform: scale(1);
+
+        .article-card img {
+            transition: transform 0.5s ease;
         }
-        .loader {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #3A6B8A;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-            margin: 2rem auto;
+
+        .article-card:hover img {
+            transform: scale(1.05);
         }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+
+        .badge-new {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.8;
+            }
+        }
+
+        .nav-link {
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.3s;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .hero-pattern {
+            background-color: #667eea;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .category-tag {
+            transition: all 0.3s;
+        }
+
+        .category-tag:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
         }
     </style>
-    
 </head>
-<body class="antialiased text-gray-800">
+<body class="bg-gray-50 text-gray-900">
 
-    <header class="bg-white/80 backdrop-blur-md sticky top-0 z-50 shadow-sm">
-        <nav class="container mx-auto px-6 py-3">
-            <div class="flex items-center justify-between">
-                <h1 class="text-xl md:text-2xl font-bold section-title">L'Ère Agentique</h1>
-                <div class="hidden md:flex space-x-6 text-sm font-medium">
-                    <a href="#market" class="text-gray-600 hover:text-[#003F5C]">Marché</a>
-                    <a href="#mcp" class="text-gray-600 hover:text-[#003F5C]">MCP</a>
-                    <a href="#usecases" class="text-gray-600 hover:text-[#003F5C]">Cas d'Usage</a>
-                    <a href="#stack" class="text-gray-600 hover:text-[#003F5C]">Architecture</a>
-                    <a href="#risks" class="text-gray-600 hover:text-[#003F5C]">Risques</a>
-                    <a href="#roadmap" class="text-gray-600 hover:text-[#003F5C]">Feuille de Route</a>
-                    <a href="#contact" class="text-gray-600 hover:text-[#003F5C]">Contact</a>
-                </div>
-            </div>
-        </nav>
-    </header>
-
-    <main class="container mx-auto p-4 md:p-8">
-
-        <section class="text-center mb-16">
-            <h2 class="text-4xl md:text-5xl font-extrabold section-title mb-4">L'Ère de l'IA Agentique : Une Révolution en Marche</h2>
-            <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
-                L'intelligence artificielle dépasse la simple réponse pour devenir un acteur proactif et autonome. Découvrez les données clés qui façonnent cette transformation stratégique majeure.
-            </p>
-            <p class="text-md text-gray-500 max-w-3xl mx-auto mt-4">
-                Une analyse proposée par <strong class="font-semibold">Pierre de Dobbeleer</strong> pour la société <strong class="font-semibold">Strartai</strong>. Pour toute question, contactez-nous à <a href="mailto:contact.stratai@gmail.com" class="text-[#3A6B8A] hover:underline">contact.stratai@gmail.com</a>.
-            </p>
-        </section>
-
-        <section id="market" class="mb-16">
-            <h3 class="text-3xl font-bold text-center section-title mb-8">Une Croissance Explosive du Marché</h3>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-                <div class="kpi-card card p-6 text-center">
-                    <div class="text-5xl font-extrabold">>40%</div>
-                    <div class="mt-2 text-lg font-medium">TCAC Prévu (2025-2030)</div>
-                    <p class="text-sm opacity-80 mt-2">Un consensus écrasant des analystes sur une croissance extraordinairement rapide.</p>
-                </div>
-                <div class="kpi-card card p-6 text-center">
-                    <div class="text-5xl font-extrabold">~52 Md$</div>
-                    <div class="mt-2 text-lg font-medium">Marché Estimé en 2030</div>
-                     <p class="text-sm opacity-80 mt-2">Partant de ~7 Md$ en 2025, le marché est sur une trajectoire d'expansion massive.</p>
-                </div>
-                <div class="kpi-card card p-6 text-center">
-                    <div class="text-5xl font-extrabold">82%</div>
-                    <div class="mt-2 text-lg font-medium">D'Adoption d'ici 3 Ans</div>
-                     <p class="text-sm opacity-80 mt-2">Une intention d'adoption quasi universelle, marquant un point d'inflexion technologique.</p>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <div class="card p-6">
-                    <h4 class="text-xl font-bold text-center section-title mb-4">Projection de la Taille du Marché (Milliards USD)</h4>
-                    <div class="chart-container">
-                        <canvas id="marketGrowthChart"></canvas>
+    <!-- Navigation -->
+    <nav class="bg-white/95 backdrop-blur-md shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-gradient-to-br from-purple-600 to-blue-500 rounded-lg flex items-center justify-center">
+                        <span class="text-white font-bold text-xl">S</span>
                     </div>
-                     <p class="text-sm text-gray-500 mt-4 text-center">Ce graphique illustre la croissance projetée du marché de l'IA agentique, montrant une expansion rapide et soutenue. La convergence des prévisions de différentes sources renforce la certitude de cette tendance haussière.</p>
-                </div>
-                <div class="card p-6">
-                    <h4 class="text-xl font-bold text-center section-title mb-4">Part de Marché par Région</h4>
-                     <div class="chart-container">
-                        <canvas id="regionalMarketShareChart"></canvas>
-                    </div>
-                     <p class="text-sm text-gray-500 mt-4 text-center">L'Amérique du Nord domine actuellement, mais la région Asie-Pacifique est identifiée comme celle connaissant la croissance la plus rapide, signalant une mondialisation de l'innovation agentique.</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="mcp" class="mb-16">
-             <h3 class="text-3xl font-bold text-center section-title mb-2">Le Moteur de l'Écosystème : Le Model Context Protocol (MCP)</h3>
-             <p class="text-lg text-gray-600 max-w-3xl mx-auto text-center mb-8">Le MCP est le standard ouvert qui résout la fragmentation, agissant comme le "port USB-C de l'IA" pour une interopérabilité universelle.</p>
-             
-            <div class="card p-8">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-                    <div class="text-center">
-                        <h4 class="text-2xl font-bold text-red-600 mb-4">Avant le MCP : Complexité M×N</h4>
-                        <p class="text-gray-600 mb-4">Chaque connexion entre un modèle et un outil nécessitait une intégration sur mesure, créant un enchevêtrement coûteux et lent.</p>
-                        <div class="flex justify-around items-center p-4 bg-red-50 rounded-lg">
-                            <div class="flex flex-col items-center space-y-2">
-                                <div class="w-12 h-12 bg-red-200 rounded-full flex items-center justify-center font-bold">M1</div>
-                                <div class="w-12 h-12 bg-red-200 rounded-full flex items-center justify-center font-bold">M2</div>
-                            </div>
-                            <div class="text-4xl text-red-500 font-bold">×</div>
-                            <div class="flex flex-col items-center space-y-2">
-                                <div class="w-12 h-12 bg-blue-200 rounded-full flex items-center justify-center font-bold">T1</div>
-                                <div class="w-12 h-12 bg-blue-200 rounded-full flex items-center justify-center font-bold">T2</div>
-                            </div>
-                        </div>
-                        <p class="mt-4 font-bold text-lg">Résultat : 4 intégrations complexes à maintenir.</p>
-                    </div>
-
-                    <div class="text-center">
-                         <h4 class="text-2xl font-bold text-green-600 mb-4">Avec le MCP : Simplicité M+N</h4>
-                        <p class="text-gray-600 mb-4">En standardisant la connexion, chaque modèle et outil devient instantanément compatible avec tout l'écosystème.</p>
-                         <div class="flex justify-around items-center p-4 bg-green-50 rounded-lg">
-                            <div class="flex flex-col items-center space-y-2">
-                                <div class="w-12 h-12 bg-red-200 rounded-full flex items-center justify-center font-bold">M1</div>
-                                <div class="w-12 h-12 bg-red-200 rounded-full flex items-center justify-center font-bold">M2</div>
-                            </div>
-                            <div class="text-4xl text-green-500 font-bold">+</div>
-                            <div class="flex flex-col items-center space-y-2">
-                                <div class="w-12 h-12 bg-blue-200 rounded-full flex items-center justify-center font-bold">T1</div>
-                                <div class="w-12 h-12 bg-blue-200 rounded-full flex items-center justify-center font-bold">T2</div>
-                            </div>
-                        </div>
-                         <p class="mt-4 font-bold text-lg">Résultat : 4 composants simples et interopérables.</p>
+                    <div>
+                        <h1 class="text-xl font-bold text-gray-900">StratAI Blog</h1>
+                        <p class="text-xs text-gray-500">par Pierre de Dobbeleer</p>
                     </div>
                 </div>
-            </div>
-        </section>
-
-        <section id="usecases" class="mb-16">
-            <h3 class="text-3xl font-bold text-center section-title mb-2">L'Impact Concret : Des Résultats Quantifiables</h3>
-            <p class="text-lg text-gray-600 max-w-3xl mx-auto text-center mb-8">L'IA agentique n'est pas une promesse future ; elle génère déjà un retour sur investissement significatif dans de multiples secteurs. Explorez des exemples concrets ci-dessous.</p>
-            <div class="card p-6">
-                 <div class="space-y-4">
-                    <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
-                        <span class="font-semibold text-gray-700">Réduction Temps de Documentation (Santé) : 60%</span>
-                        <button class="gemini-button" onclick="exploreUseCase('Réduction du temps de documentation en santé')">Explorer ✨</button>
-                    </div>
-                    <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
-                        <span class="font-semibold text-gray-700">Neutralisation des Menaces (Cyber) : 92%</span>
-                        <button class="gemini-button" onclick="exploreUseCase('Neutralisation des menaces de cybersécurité')">Explorer ✨</button>
-                    </div>
-                    <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
-                        <span class="font-semibold text-gray-700">Réduction Temps d'Arrêt (Industrie) : 30%</span>
-                        <button class="gemini-button" onclick="exploreUseCase('Réduction du temps d\'arrêt dans l\'industrie')">Explorer ✨</button>
-                    </div>
-                     <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
-                        <span class="font-semibold text-gray-700">Réduction Abandon Panier (Détail) : 40%</span>
-                        <button class="gemini-button" onclick="exploreUseCase('Réduction de l\'abandon de panier dans le commerce de détail')">Explorer ✨</button>
-                    </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#" class="nav-link text-gray-700 hover:text-purple-600 font-medium">Accueil</a>
+                    <a href="#articles" class="nav-link text-gray-700 hover:text-purple-600 font-medium">Articles</a>
+                    <a href="#categories" class="nav-link text-gray-700 hover:text-purple-600 font-medium">Catégories</a>
+                    <a href="#a-propos" class="nav-link text-gray-700 hover:text-purple-600 font-medium">À propos</a>
+                    <a href="mailto:contact.stratai@gmail.com" class="bg-gradient-to-r from-purple-600 to-blue-500 text-white px-5 py-2 rounded-full font-medium hover:shadow-lg transition-all">
+                        Contact
+                    </a>
                 </div>
-            </div>
-        </section>
-
-        <section id="stack" class="mb-16">
-            <h3 class="text-3xl font-bold text-center section-title mb-2">Clarifier l'Architecture de l'IA Moderne</h3>
-            <p class="text-lg text-gray-600 max-w-3xl mx-auto text-center mb-8">Comprendre la pile technologique est essentiel pour prendre des décisions éclairées. L'IA agentique et le RAG ne sont pas des concurrents, mais des composants d'un tout plus grand.</p>
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <div class="card p-8">
-                    <h4 class="text-xl font-bold text-center section-title mb-6">La Pile Architecturale de l'IA</h4>
-                    <div class="space-y-4">
-                        <div class="p-4 bg-[#6883BA] text-white rounded-lg text-center shadow">
-                            <h5 class="font-bold">Couche 4 : Outils & Données</h5>
-                            <p class="text-sm opacity-90">APIs, bases de données, fichiers, ressources externes...</p>
-                        </div>
-                        <div class="p-4 bg-[#79A7D3] text-white rounded-lg text-center shadow">
-                            <h5 class="font-bold">Couche 3 : Connectivité (MCP)</h5>
-                             <p class="text-sm opacity-90">Protocole standard pour la communication agent-outil.</p>
-                        </div>
-                        <div class="p-4 bg-[#3A6B8A] text-white rounded-lg text-center shadow">
-                            <h5 class="font-bold">Couche 2 : Orchestration (ex: LangChain)</h5>
-                             <p class="text-sm opacity-90">Framework pour construire la logique interne de l'agent.</p>
-                        </div>
-                        <div class="p-4 bg-[#003F5C] text-white rounded-lg text-center shadow">
-                            <h5 class="font-bold">Couche 1 : Modèle (LLM)</h5>
-                             <p class="text-sm opacity-90">Le "cerveau" de l'IA (GPT, Claude, Gemini...).</p>
-                        </div>
-                    </div>
-                     <p class="text-sm text-gray-500 mt-6 text-center">Cette architecture en couches montre comment des technologies comme LangChain et le MCP sont complémentaires, opérant à des niveaux d'abstraction différents pour construire des systèmes IA robustes.</p>
-                </div>
-                 <div class="card p-8">
-                    <h4 class="text-xl font-bold text-center section-title mb-6">Action vs. Information : Agentique et RAG</h4>
-                    <div class="flex flex-col space-y-4">
-                        <div class="border-l-4 border-[#3A6B8A] p-4 bg-blue-50 rounded-r-lg">
-                           <h5 class="font-bold section-title">RAG (Réactif)</h5>
-                           <p class="text-sm text-gray-600">Améliore la qualité des réponses en fournissant un contexte précis. <strong class="text-[#003F5C]">Son but est d'informer.</strong></p>
-                        </div>
-                        <div class="self-center my-4 flow-arrow"></div>
-                         <div class="border-l-4 border-[#79A7D3] p-4 bg-blue-50 rounded-r-lg">
-                           <h5 class="font-bold section-title">IA Agentique (Proactif)</h5>
-                           <p class="text-sm text-gray-600">Utilise des outils (y compris le RAG) pour planifier et exécuter des tâches. <strong class="text-[#003F5C]">Son but est d'agir.</strong></p>
-                        </div>
-                    </div>
-                     <p class="text-sm text-gray-500 mt-6 text-center">Un agent IA utilise le RAG comme un outil pour obtenir des informations fiables avant de décider des prochaines actions à entreprendre. C'est le passage de "l'IA qui sait" à "l'IA qui fait".</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="risks" class="mb-16">
-            <h3 class="text-3xl font-bold text-center section-title mb-2">Naviguer le Double Impératif : Sécurité & Éthique</h3>
-             <p class="text-lg text-gray-600 max-w-3xl mx-auto text-center mb-8">La puissance de l'autonomie s'accompagne de risques. Une gouvernance rigoureuse et une architecture de sécurité adaptée sont non négociables.</p>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div class="card p-6">
-                    <h4 class="text-lg font-bold section-title mb-2">☣️ Empoisonnement d'Outil</h4>
-                    <p class="text-sm text-gray-600">Des instructions malveillantes cachées dans les métadonnées d'un outil pour tromper l'IA et exfiltrer des données.</p>
-                </div>
-                <div class="card p-6">
-                    <h4 class="text-lg font-bold section-title mb-2">🎭 "Rug Pulls"</h4>
-                    <p class="text-sm text-gray-600">Un outil initialement bénin devient malveillant après avoir obtenu la confiance et les permissions de l'utilisateur.</p>
-                </div>
-                <div class="card p-6">
-                    <h4 class="text-lg font-bold section-title mb-2">👥 "Tool Shadowing"</h4>
-                    <p class="text-sm text-gray-600">Un outil malveillant imite le nom d'un outil légitime pour intercepter et détourner les actions de l'agent.</p>
-                </div>
-                <div class="card p-6">
-                    <h4 class="text-lg font-bold section-title mb-2">⚖️ Biais & Éthique</h4>
-                    <p class="text-sm text-gray-600">Risques de discrimination, violation de la vie privée et opacité des décisions si non gérés de manière proactive.</p>
-                </div>
-            </div>
-            <div class="mt-8 text-center bg-white p-6 rounded-xl shadow-lg">
-                <p class="text-lg text-gray-700">La solution évolue d'un <span class="font-bold text-[#003F5C]">"Zero Trust" basé sur l'identité</span> vers un <span class="font-bold text-[#6883BA]">Zero Trust comportemental</span> : ce n'est pas seulement qui vous êtes, mais si ce que vous faites est normal et attendu.</p>
-                 <button class="gemini-button mt-4" onclick="brainstormSolutions()">Brainstormer des Solutions ✨</button>
-            </div>
-        </section>
-
-        <section id="roadmap" class="mb-16">
-            <h3 class="text-3xl font-bold text-center section-title mb-8">Votre Feuille de Route pour l'Adoption</h3>
-            <div class="relative">
-                <div class="border-l-2 border-dashed border-[#79A7D3] absolute h-full top-0 left-4 md:left-1/2 md:-translate-x-1/2"></div>
-                
-                <div class="mb-8 flex md:justify-end md:pr-8">
-                    <div class="w-full md:w-5/12 pl-12 md:pl-0 md:text-right relative">
-                        <div class="flow-dot absolute top-0 -left-9 md:left-auto md:-right-[38px]"></div>
-                        <h4 class="text-xl font-bold section-title">1. Moderniser les Fondations</h4>
-                        <p class="text-gray-600">Assurez la qualité et l'accessibilité des données. Un agent ne peut agir que sur ce qu'il peut voir clairement.</p>
-                    </div>
-                </div>
-
-                <div class="mb-8 flex md:justify-start md:pl-8">
-                     <div class="w-full md:w-5/12 pl-12 md:pl-0 relative">
-                        <div class="flow-dot absolute top-0 -left-9 md:left-[-38px]"></div>
-                        <h4 class="text-xl font-bold section-title">2. Identifier le Cas d'Usage</h4>
-                        <p class="text-gray-600">Partez d'un vrai problème métier, pas de la technologie. Impliquez les utilisateurs finaux dès le début.</p>
-                    </div>
-                </div>
-
-                <div class="mb-8 flex md:justify-end md:pr-8">
-                     <div class="w-full md:w-5/12 pl-12 md:pl-0 md:text-right relative">
-                        <div class="flow-dot absolute top-0 -left-9 md:left-auto md:-right-[38px]"></div>
-                        <h4 class="text-xl font-bold section-title">3. Définir des Métriques Claires</h4>
-                        <p class="text-gray-600">Qu'est-ce que le succès ? Définissez des objectifs SMART pour mesurer le ROI et justifier l'investissement.</p>
-                    </div>
-                </div>
-
-                <div class="mb-8 flex md:justify-start md:pl-8">
-                    <div class="w-full md:w-5/12 pl-12 md:pl-0 relative">
-                        <div class="flow-dot absolute top-0 -left-9 md:left-[-38px]"></div>
-                        <h4 class="text-xl font-bold section-title">4. Lancer un Pilote Contrôlé</h4>
-                        <p class="text-gray-600">Testez, apprenez et réduisez les risques sur un périmètre limité avant de passer à l'échelle.</p>
-                    </div>
-                </div>
-                 <div class="mb-8 flex md:justify-end md:pr-8">
-                     <div class="w-full md:w-5/12 pl-12 md:pl-0 md:text-right relative">
-                        <div class="flow-dot absolute top-0 -left-9 md:left-auto md:-right-[38px]"></div>
-                        <h4 class="text-xl font-bold section-title">5. Mettre en Place la Gouvernance</h4>
-                        <p class="text-gray-600">Déployez des outils de supervision, auditez les actions et formez les équipes à la collaboration homme-machine.</p>
-                    </div>
-                </div>
-                 <div class="flex md:justify-start md:pl-8">
-                     <div class="w-full md:w-5/12 pl-12 md:pl-0 relative">
-                        <div class="flow-dot absolute top-0 -left-9 md:left-[-38px]"></div>
-                        <h4 class="text-xl font-bold section-title">6. Itérer et Mettre à l'Échelle</h4>
-                        <p class="text-gray-600">Le déploiement est un début. Surveillez en continu, améliorez et étendez progressivement.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-         <section class="text-center mt-16 card kpi-card p-8">
-            <h3 class="text-3xl font-extrabold mb-4">La Leçon Stratégique Finale</h3>
-            <p class="text-xl max-w-4xl mx-auto mb-2">
-                Plus de 40% des projets d'IA agentique pourraient échouer non pas à cause de la technologie, mais d'une <strong class="underline decoration-wavy">stratégie défaillante</strong>.
-            </p>
-            <p class="text-lg max-w-4xl mx-auto">
-                Le succès ne sera pas déterminé par la puissance du modèle, mais par la <strong class="font-black">rigueur de la mise en œuvre</strong>. Partez d'un problème métier, prouvez la valeur, gérez les risques. La discipline stratégique est le facteur clé de succès.
-            </p>
-        </section>
-
-        <section id="contact" class="mb-16 mt-16">
-            <h3 class="text-3xl font-bold text-center section-title mb-8">Nous Contacter</h3>
-            <div class="card p-8 max-w-2xl mx-auto text-center">
-                <h4 class="text-2xl font-bold section-title mb-4">Strartai</h4>
-                <p class="text-lg text-gray-700">Cette analyse a été rédigée par :</p>
-                <p class="text-xl font-semibold text-[#3A6B8A] my-2">Pierre de Dobbeleer</p>
-                <p class="text-lg text-gray-700 mt-4">Pour toute question, demande d'information ou opportunité de collaboration, n'hésitez pas à nous écrire.</p>
-                <a href="mailto:contact.stratai@gmail.com" class="mt-6 inline-block bg-[#003F5C] text-white font-bold py-3 px-6 rounded-lg hover:bg-[#3A6B8A] transition-colors">
-                    contact.stratai@gmail.com
-                </a>
-            </div>
-        </section>
-
-    </main>
-    
-    <div id="gemini-modal" class="modal-overlay">
-        <div class="modal-content">
-            <div class="flex justify-between items-center mb-4">
-                <h3 id="modal-title" class="text-2xl font-bold section-title">Exploration</h3>
-                <button onclick="closeModal()" class="text-gray-500 hover:text-gray-800 text-2xl font-bold">&times;</button>
-            </div>
-            <div id="modal-body">
-                <div class="loader"></div>
+                <button class="md:hidden">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
             </div>
         </div>
-    </div>
+    </nav>
 
+    <!-- Hero Section -->
+    <section class="hero-pattern text-white py-20">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto text-center">
+                <div class="inline-block mb-4">
+                    <span class="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-medium">
+                        🚀 Expertise en Intelligence Artificielle
+                    </span>
+                </div>
+                <h1 class="text-5xl md:text-6xl font-extrabold mb-6 leading-tight">
+                    Explorez l'Avenir de l'IA
+                </h1>
+                <p class="text-xl md:text-2xl mb-8 text-purple-100 max-w-3xl mx-auto">
+                    Articles, analyses et insights sur l'IA agentique, le Machine Learning et les technologies qui façonnent demain
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="#articles" class="bg-white text-purple-600 px-8 py-4 rounded-full font-bold hover:bg-gray-100 transition-all shadow-lg inline-flex items-center justify-center">
+                        Découvrir les articles
+                        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                        </svg>
+                    </a>
+                    <a href="mailto:contact.stratai@gmail.com" class="bg-white/10 backdrop-blur-sm text-white border-2 border-white px-8 py-4 rounded-full font-bold hover:bg-white/20 transition-all inline-flex items-center justify-center">
+                        Me contacter
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <footer class="text-center p-6 mt-8">
-        <p class="text-sm text-gray-500">Infographie générée à partir du rapport "L'Ère Agentique : Analyse Stratégique".</p>
+    <!-- Categories Section -->
+    <section id="categories" class="py-12 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-wrap justify-center gap-3">
+                <button class="category-tag bg-purple-100 text-purple-700 px-6 py-2 rounded-full font-medium hover:bg-purple-200">
+                    🤖 IA Agentique
+                </button>
+                <button class="category-tag bg-blue-100 text-blue-700 px-6 py-2 rounded-full font-medium hover:bg-blue-200">
+                    🧠 Machine Learning
+                </button>
+                <button class="category-tag bg-green-100 text-green-700 px-6 py-2 rounded-full font-medium hover:bg-green-200">
+                    🌐 Navigateurs IA
+                </button>
+                <button class="category-tag bg-orange-100 text-orange-700 px-6 py-2 rounded-full font-medium hover:bg-orange-200">
+                    🔒 Cybersécurité
+                </button>
+                <button class="category-tag bg-pink-100 text-pink-700 px-6 py-2 rounded-full font-medium hover:bg-pink-200">
+                    💡 Innovation
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Articles Section -->
+    <main id="articles" class="container mx-auto px-4 py-16">
+        <div class="text-center mb-12">
+            <h2 class="text-4xl font-extrabold text-gray-900 mb-4">
+                Articles Récents
+            </h2>
+            <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                Analyses approfondies et retours d'expérience sur les dernières innovations en IA
+            </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+
+            <!-- Article 1 - Navigateurs Agentiques 2025 -->
+            <article class="article-card bg-white rounded-2xl overflow-hidden shadow-lg">
+                <a href="articles/2025-11-navigateurs-agentiques/" class="block relative">
+                    <div class="relative h-56 overflow-hidden bg-gradient-to-br from-blue-500 to-purple-600">
+                        <img src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=800&q=80"
+                             alt="Navigateurs Agentiques IA"
+                             class="w-full h-full object-cover opacity-90">
+                        <div class="absolute top-4 right-4">
+                            <span class="badge-new text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg">
+                                NOUVEAU
+                            </span>
+                        </div>
+                    </div>
+                    <div class="p-6 relative z-10">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="text-sm font-semibold text-purple-600">17 Nov 2025</span>
+                            <span class="text-gray-300">•</span>
+                            <span class="text-sm text-gray-500">15 min</span>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-3 leading-tight">
+                            Les Navigateurs Agentiques : La Révolution de 2025
+                        </h3>
+                        <p class="text-gray-600 mb-4 line-clamp-3">
+                            Analyse complète des 7 navigateurs qui changent la donne : Comet, Atlas, Dia... Découvrez les notations, avantages et risques de sécurité.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-purple-100 text-purple-700 text-xs px-3 py-1 rounded-full font-medium">IA Agentique</span>
+                            <span class="bg-blue-100 text-blue-700 text-xs px-3 py-1 rounded-full font-medium">Navigateurs</span>
+                            <span class="bg-orange-100 text-orange-700 text-xs px-3 py-1 rounded-full font-medium">Sécurité</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-purple-600 font-bold inline-flex items-center group">
+                                Lire l'article
+                                <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                                </svg>
+                            </span>
+                            <div class="flex items-center text-gray-400 text-sm">
+                                <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path>
+                                    <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"></path>
+                                </svg>
+                                ⭐⭐⭐⭐⭐
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </article>
+
+            <!-- Article 2 - IA Agentique -->
+            <article class="article-card bg-white rounded-2xl overflow-hidden shadow-lg">
+                <a href="articles/2024-06-ere-agentique/" class="block relative">
+                    <div class="relative h-56 overflow-hidden bg-gradient-to-br from-indigo-500 to-blue-600">
+                        <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&q=80"
+                             alt="IA Agentique Robots"
+                             class="w-full h-full object-cover opacity-90">
+                    </div>
+                    <div class="p-6 relative z-10">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="text-sm font-semibold text-purple-600">28 Juin 2024</span>
+                            <span class="text-gray-300">•</span>
+                            <span class="text-sm text-gray-500">18 min</span>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-3 leading-tight">
+                            L'Ère de l'IA Agentique
+                        </h3>
+                        <p class="text-gray-600 mb-4 line-clamp-3">
+                            Comment les agents autonomes redéfinissent notre rapport à la technologie. Analyse du marché, du MCP et des cas d'usage concrets.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-purple-100 text-purple-700 text-xs px-3 py-1 rounded-full font-medium">IA Agentique</span>
+                            <span class="bg-green-100 text-green-700 text-xs px-3 py-1 rounded-full font-medium">MCP</span>
+                            <span class="bg-pink-100 text-pink-700 text-xs px-3 py-1 rounded-full font-medium">Innovation</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-purple-600 font-bold inline-flex items-center group">
+                                Lire l'article
+                                <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                                </svg>
+                            </span>
+                            <div class="flex items-center text-gray-400 text-sm">
+                                <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path>
+                                    <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"></path>
+                                </svg>
+                                📊 Infographie
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </article>
+
+            <!-- Article 3 - ML Fundamentals -->
+            <article class="article-card bg-white rounded-2xl overflow-hidden shadow-lg">
+                <a href="articles/2024-07-fondamentaux-ml/" class="block relative">
+                    <div class="relative h-56 overflow-hidden bg-gradient-to-br from-green-500 to-teal-600">
+                        <img src="https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=800&q=80"
+                             alt="Machine Learning Data"
+                             class="w-full h-full object-cover opacity-90">
+                    </div>
+                    <div class="p-6 relative z-10">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="text-sm font-semibold text-purple-600">15 Juil 2024</span>
+                            <span class="text-gray-300">•</span>
+                            <span class="text-sm text-gray-500">12 min</span>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-3 leading-tight">
+                            Les Fondamentaux du Machine Learning
+                        </h3>
+                        <p class="text-gray-600 mb-4 line-clamp-3">
+                            Découvrez les concepts de base de l'apprentissage automatique et ses applications concrètes dans l'industrie technologique.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-blue-100 text-blue-700 text-xs px-3 py-1 rounded-full font-medium">Machine Learning</span>
+                            <span class="bg-green-100 text-green-700 text-xs px-3 py-1 rounded-full font-medium">Formation</span>
+                            <span class="bg-yellow-100 text-yellow-700 text-xs px-3 py-1 rounded-full font-medium">Fondamentaux</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-purple-600 font-bold inline-flex items-center group">
+                                Lire l'article
+                                <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                                </svg>
+                            </span>
+                            <div class="flex items-center text-gray-400 text-sm">
+                                <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path>
+                                    <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"></path>
+                                </svg>
+                                📚 Tutoriel
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </article>
+
+        </div>
+
+        <!-- Newsletter CTA -->
+        <div class="bg-gradient-to-r from-purple-600 to-blue-500 rounded-2xl p-8 md:p-12 text-white text-center shadow-2xl">
+            <h3 class="text-3xl font-bold mb-4">Restez informé des dernières innovations</h3>
+            <p class="text-lg mb-6 text-purple-100 max-w-2xl mx-auto">
+                Recevez les nouveaux articles et analyses directement dans votre boîte mail
+            </p>
+            <div class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+                <input type="email" placeholder="votre@email.com" class="flex-1 px-6 py-3 rounded-full text-gray-900 focus:outline-none focus:ring-2 focus:ring-white">
+                <button class="bg-white text-purple-600 px-8 py-3 rounded-full font-bold hover:bg-gray-100 transition-all whitespace-nowrap">
+                    S'abonner
+                </button>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- About Section -->
+    <section id="a-propos" class="bg-white py-16">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <h2 class="text-4xl font-bold text-gray-900 mb-6">À Propos</h2>
+                        <div class="prose prose-lg">
+                            <p class="text-gray-600 mb-4">
+                                <strong class="text-gray-900">Pierre de Dobbeleer</strong> est un expert reconnu en <strong>Intelligence Artificielle</strong>, spécialisé dans les systèmes agentiques, l'architecture IA et les transformations digitales.
+                            </p>
+                            <p class="text-gray-600 mb-4">
+                                Fondateur de <strong class="text-purple-600">StratAI</strong>, il accompagne les entreprises dans leur adoption stratégique de l'IA, en équilibrant innovation et sécurité pour des déploiements responsables et performants.
+                            </p>
+                            <div class="flex gap-3 mt-6">
+                                <a href="mailto:contact.stratai@gmail.com" class="bg-purple-600 text-white px-6 py-3 rounded-full font-medium hover:bg-purple-700 transition-all inline-flex items-center">
+                                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                                    </svg>
+                                    Contact
+                                </a>
+                                <a href="https://www.linkedin.com/in/pierre-de-dobbeleer" target="_blank" class="bg-blue-600 text-white px-6 py-3 rounded-full font-medium hover:bg-blue-700 transition-all inline-flex items-center">
+                                    <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                                    </svg>
+                                    LinkedIn
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="relative">
+                        <div class="aspect-square rounded-2xl bg-gradient-to-br from-purple-600 to-blue-500 p-1">
+                            <div class="w-full h-full bg-white rounded-2xl flex items-center justify-center">
+                                <div class="text-center">
+                                    <div class="w-32 h-32 mx-auto mb-4 bg-gradient-to-br from-purple-600 to-blue-500 rounded-full flex items-center justify-center text-white text-6xl font-bold">
+                                        PD
+                                    </div>
+                                    <h3 class="text-2xl font-bold text-gray-900">Pierre de Dobbeleer</h3>
+                                    <p class="text-purple-600 font-medium">Expert en IA</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-300 py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center space-x-3 mb-4">
+                        <div class="w-10 h-10 bg-gradient-to-br from-purple-600 to-blue-500 rounded-lg flex items-center justify-center">
+                            <span class="text-white font-bold text-xl">S</span>
+                        </div>
+                        <span class="text-white font-bold text-xl">StratAI</span>
+                    </div>
+                    <p class="text-sm text-gray-400">
+                        Expertise en Intelligence Artificielle et innovation technologique
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Navigation</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-purple-400 transition-colors">Accueil</a></li>
+                        <li><a href="#articles" class="hover:text-purple-400 transition-colors">Articles</a></li>
+                        <li><a href="#categories" class="hover:text-purple-400 transition-colors">Catégories</a></li>
+                        <li><a href="#a-propos" class="hover:text-purple-400 transition-colors">À propos</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Catégories</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-purple-400 transition-colors">IA Agentique</a></li>
+                        <li><a href="#" class="hover:text-purple-400 transition-colors">Machine Learning</a></li>
+                        <li><a href="#" class="hover:text-purple-400 transition-colors">Navigateurs IA</a></li>
+                        <li><a href="#" class="hover:text-purple-400 transition-colors">Cybersécurité</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Contact</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li>
+                            <a href="mailto:contact.stratai@gmail.com" class="hover:text-purple-400 transition-colors flex items-center">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                                </svg>
+                                contact.stratai@gmail.com
+                            </a>
+                        </li>
+                        <li><a href="#" class="hover:text-purple-400 transition-colors">LinkedIn</a></li>
+                        <li><a href="#" class="hover:text-purple-400 transition-colors">Twitter</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8 text-center text-sm">
+                <p>© 2025 Pierre de Dobbeleer - StratAI. Tous droits réservés.</p>
+                <p class="text-gray-500 mt-2">Analyse et expertise en Intelligence Artificielle</p>
+            </div>
+        </div>
     </footer>
 
-    <script>
-        const brilliantBlues = ['#003F5C', '#3A6B8A', '#79A7D3', '#6883BA', '#A3CEF1'];
-        const brilliantBluesReversed = [...brilliantBlues].reverse();
-
-        const processLabels = (labels) => {
-            const maxLen = 16;
-            return labels.map(label => {
-                if (label.length <= maxLen) {
-                    return label;
-                }
-                const words = label.split(' ');
-                const lines = [];
-                let currentLine = '';
-                words.forEach(word => {
-                    if ((currentLine + ' ' + word).trim().length > maxLen) {
-                        lines.push(currentLine.trim());
-                        currentLine = word;
-                    } else {
-                        currentLine = (currentLine + ' ' + word).trim();
-                    }
-                });
-                lines.push(currentLine.trim());
-                return lines;
-            });
-        };
-        
-        const tooltipTitleCallback = (tooltipItems) => {
-            const item = tooltipItems[0];
-            let label = item.chart.data.labels[item.dataIndex];
-            if (Array.isArray(label)) {
-              return label.join(' ');
-            } else {
-              return label;
-            }
-        };
-        
-        const defaultTooltipOptions = {
-            plugins: {
-                tooltip: {
-                    callbacks: {
-                        title: tooltipTitleCallback
-                    }
-                }
-            }
-        };
-
-        const marketGrowthCtx = document.getElementById('marketGrowthChart')?.getContext('2d');
-        if (marketGrowthCtx) {
-            new Chart(marketGrowthCtx, {
-                type: 'line',
-                data: {
-                    labels: ['2025', '2026', '2027', '2028', '2029', '2030'],
-                    datasets: [
-                    {
-                        label: 'Mordor Intelligence',
-                        data: [7.28, 10.3, 14.6, 20.7, 29.3, 41.32],
-                        borderColor: brilliantBlues[1],
-                        backgroundColor: 'rgba(58, 107, 138, 0.1)',
-                        fill: true,
-                        tension: 0.4
-                    },
-                    {
-                        label: 'MarketsandMarkets',
-                        data: [7.84, 11.5, 16.8, 24.6, 35.9, 52.62],
-                        borderColor: brilliantBlues[2],
-                        backgroundColor: 'rgba(121, 167, 211, 0.1)',
-                        fill: true,
-                        tension: 0.4
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: defaultTooltipOptions.plugins,
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            title: {
-                                display: true,
-                                text: 'Milliards USD'
-                            }
-                        }
-                    }
-                }
-            });
-        }
-
-        const regionalMarketShareCtx = document.getElementById('regionalMarketShareChart')?.getContext('2d');
-        if (regionalMarketShareCtx) {
-            new Chart(regionalMarketShareCtx, {
-                type: 'doughnut',
-                data: {
-                    labels: ['Amérique du Nord', 'Asie-Pacifique', 'Europe', 'Reste du Monde'],
-                    datasets: [{
-                        label: 'Part de Marché',
-                        data: [40.1, 25, 20, 14.9],
-                        backgroundColor: brilliantBlues,
-                        hoverOffset: 4
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        ...defaultTooltipOptions.plugins,
-                        legend: {
-                            position: 'bottom',
-                        }
-                    }
-                }
-            });
-        }
-        
-        const modal = document.getElementById('gemini-modal');
-        const modalTitle = document.getElementById('modal-title');
-        const modalBody = document.getElementById('modal-body');
-        
-        function showModal(title) {
-            modalTitle.textContent = title;
-            modalBody.innerHTML = '<div class="loader"></div>';
-            modal.classList.add('visible');
-        }
-
-        function closeModal() {
-            modal.classList.remove('visible');
-        }
-        
-        modal.addEventListener('click', (event) => {
-            if (event.target === modal) {
-                closeModal();
-            }
-        });
-
-        async function callGeminiAPI(prompt) {
-            let chatHistory = [];
-            chatHistory.push({ role: "user", parts: [{ text: prompt }] });
-            const payload = { contents: chatHistory };
-            const apiKey = ""
-            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-
-            try {
-                const response = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-                const result = await response.json();
-                if (result.candidates && result.candidates.length > 0 &&
-                    result.candidates[0].content && result.candidates[0].content.parts &&
-                    result.candidates[0].content.parts.length > 0) {
-                    return result.candidates[0].content.parts[0].text;
-                } else {
-                    console.error("Gemini API response format is unexpected:", result);
-                    return "Désolé, la réponse de l'IA n'a pas pu être traitée. Veuillez réessayer.";
-                }
-            } catch (error) {
-                console.error("Error calling Gemini API:", error);
-                return "Une erreur de communication avec le service d'IA est survenue. Veuillez vérifier votre connexion et réessayer.";
-            }
-        }
-        
-        function formatGeminiResponse(text) {
-             return text
-                .replace(/^### (.*$)/gm, '<h4 class="text-lg font-bold section-title mt-4 mb-2">$1</h4>')
-                .replace(/^\* \*\*(.*):\*\*/gm, '<p class="mt-2"><strong>$1:</strong>')
-                .replace(/^\* (.*$)/gm, '<li class="pl-4 list-disc ml-4">$1</li>')
-                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-                .replace(/\n/g, '<br>');
-        }
-
-        async function exploreUseCase(useCase) {
-            const title = `Exemple : ${useCase}`;
-            showModal(title);
-            const prompt = `Vous êtes un stratège d'affaires spécialisé en IA. Pour le cas d'usage "${useCase}", rédigez un exemple concret et factuel. Basez votre exemple sur des données et des cas réels, comme ceux documentés (par exemple, Siemens pour l'industrie, H&M pour le détail, Darktrace pour la cybersécurité). Soyez précis, professionnel, et allez directement au contenu sans phrase d'introduction. (environ 100 mots).`;
-            const result = await callGeminiAPI(prompt);
-            modalBody.innerHTML = `<p>${formatGeminiResponse(result)}</p>`;
-        }
-
-        async function brainstormSolutions() {
-            const title = 'Brainstorming de Solutions';
-            showModal(title);
-            const prompt = `Vous êtes un expert en cybersécurité et en éthique de l'IA. Pour les risques suivants liés aux agents IA : "Empoisonnement d'Outil", "Rug Pulls d'outils", "Tool Shadowing", et "Biais & Éthique", proposez des stratégies d'atténuation (mélange de solutions techniques et politiques). Présentez la réponse directement en utilisant le format Markdown avec des titres pour chaque risque, sans aucune phrase d'introduction.`;
-            const result = await callGeminiAPI(prompt);
-            modalBody.innerHTML = formatGeminiResponse(result);
-        }
-
-    </script>
 </body>
 </html>
