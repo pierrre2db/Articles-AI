@@ -1,101 +1,465 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog Technique - Votre Nom</title>
+    <title>StratAI Blog - Intelligence Artificielle & Innovation</title>
+    <meta name="description" content="Blog technique de Pierre de Dobbeleer sur l'IA agentique, le machine learning et les technologies émergentes.">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            line-height: 1.6;
         }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .article-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .article-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 1;
+        }
+
+        .article-card:hover::before {
+            opacity: 1;
+        }
+
         .article-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.15);
+        }
+
+        .article-card img {
+            transition: transform 0.5s ease;
+        }
+
+        .article-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .badge-new {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.8;
+            }
+        }
+
+        .nav-link {
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.3s;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .hero-pattern {
+            background-color: #667eea;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .category-tag {
+            transition: all 0.3s;
+        }
+
+        .category-tag:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
         }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800">
-    <header class="bg-white shadow-sm">
-        <div class="container mx-auto px-4 py-6">
+<body class="bg-gray-50 text-gray-900">
+
+    <!-- Navigation -->
+    <nav class="bg-white/95 backdrop-blur-md shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4">
             <div class="flex justify-between items-center">
-                <h1 class="text-2xl font-bold text-gray-900">Votre Blog Technique</h1>
-                <nav>
-                    <a href="#" class="text-blue-600 hover:text-blue-800 font-medium">Accueil</a>
-                    <a href="#articles" class="ml-6 text-gray-600 hover:text-blue-600">Articles</a>
-                    <a href="#a-propos" class="ml-6 text-gray-600 hover:text-blue-600">À propos</a>
-                </nav>
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-gradient-to-br from-purple-600 to-blue-500 rounded-lg flex items-center justify-center">
+                        <span class="text-white font-bold text-xl">S</span>
+                    </div>
+                    <div>
+                        <h1 class="text-xl font-bold text-gray-900">StratAI Blog</h1>
+                        <p class="text-xs text-gray-500">par Pierre de Dobbeleer</p>
+                    </div>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#" class="nav-link text-gray-700 hover:text-purple-600 font-medium">Accueil</a>
+                    <a href="#articles" class="nav-link text-gray-700 hover:text-purple-600 font-medium">Articles</a>
+                    <a href="#categories" class="nav-link text-gray-700 hover:text-purple-600 font-medium">Catégories</a>
+                    <a href="#a-propos" class="nav-link text-gray-700 hover:text-purple-600 font-medium">À propos</a>
+                    <a href="mailto:contact.stratai@gmail.com" class="bg-gradient-to-r from-purple-600 to-blue-500 text-white px-5 py-2 rounded-full font-medium hover:shadow-lg transition-all">
+                        Contact
+                    </a>
+                </div>
+                <button class="md:hidden">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
             </div>
         </div>
-    </header>
+    </nav>
 
-    <main class="container mx-auto px-4 py-12">
-        <section class="text-center mb-16">
-            <h2 class="text-4xl font-bold text-gray-900 mb-4">Réflexions sur l'IA et la Technologie</h2>
-            <p class="text-xl text-gray-600 max-w-2xl mx-auto">
-                Articles et analyses sur les dernières avancées en intelligence artificielle et développement logiciel.
-            </p>
-        </section>
-
-        <section id="articles" class="mb-16">
-            <h2 class="text-2xl font-semibold text-gray-800 mb-8 pb-2 border-b">Derniers Articles</h2>
-            
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Article 1 - Navigateurs Agentiques 2025 -->
-                <article class="article-card bg-white rounded-lg overflow-hidden shadow-md transition-all duration-300">
-                    <a href="articles/2025-11-navigateurs-agentiques/">
-                        <img src="https://source.unsplash.com/random/600x400/?browser,ai,automation" alt="Navigateurs Agentiques" class="w-full h-48 object-cover">
-                        <div class="p-6">
-                            <span class="text-sm text-blue-600">17 Novembre 2025</span>
-                            <h3 class="text-xl font-bold mt-2 mb-3">Les Navigateurs Agentiques : La Révolution de 2025</h3>
-                            <p class="text-gray-600 mb-4">Découvrez Comet, Atlas, Dia et les autres navigateurs qui agissent de manière autonome. Analyse complète avec notations et aspects critiques.</p>
-                            <span class="text-blue-600 font-medium inline-flex items-center">Lire l'article →</span>
-                        </div>
+    <!-- Hero Section -->
+    <section class="hero-pattern text-white py-20">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto text-center">
+                <div class="inline-block mb-4">
+                    <span class="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-medium">
+                        🚀 Expertise en Intelligence Artificielle
+                    </span>
+                </div>
+                <h1 class="text-5xl md:text-6xl font-extrabold mb-6 leading-tight">
+                    Explorez l'Avenir de l'IA
+                </h1>
+                <p class="text-xl md:text-2xl mb-8 text-purple-100 max-w-3xl mx-auto">
+                    Articles, analyses et insights sur l'IA agentique, le Machine Learning et les technologies qui façonnent demain
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="#articles" class="bg-white text-purple-600 px-8 py-4 rounded-full font-bold hover:bg-gray-100 transition-all shadow-lg inline-flex items-center justify-center">
+                        Découvrir les articles
+                        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                        </svg>
                     </a>
-                </article>
-
-                <!-- Article 2 - IA Agentique -->
-                <article class="article-card bg-white rounded-lg overflow-hidden shadow-md transition-all duration-300">
-                    <a href="articles/2024-06-ere-agentique/">
-                        <img src="https://source.unsplash.com/random/600x400/?ai,technology" alt="IA Agentique" class="w-full h-48 object-cover">
-                        <div class="p-6">
-                            <span class="text-sm text-blue-600">28 Juin 2024</span>
-                            <h3 class="text-xl font-bold mt-2 mb-3">L'Ère de l'IA Agentique</h3>
-                            <p class="text-gray-600 mb-4">Comment les agents autonomes redéfinissent notre rapport à la technologie et transforment les industries.</p>
-                            <span class="text-blue-600 font-medium inline-flex items-center">Lire l'article →</span>
-                        </div>
+                    <a href="mailto:contact.stratai@gmail.com" class="bg-white/10 backdrop-blur-sm text-white border-2 border-white px-8 py-4 rounded-full font-bold hover:bg-white/20 transition-all inline-flex items-center justify-center">
+                        Me contacter
                     </a>
-                </article>
-
-                <!-- Article 3 - Fondamentaux du Machine Learning -->
-                <article class="article-card bg-white rounded-lg overflow-hidden shadow-md transition-all duration-300">
-                    <a href="articles/2024-07-fondamentaux-ml/">
-                        <img src="https://source.unsplash.com/random/600x400/?machine,learning" alt="Machine Learning" class="w-full h-48 object-cover">
-                        <div class="p-6">
-                            <span class="text-sm text-blue-600">15 Juillet 2024</span>
-                            <h3 class="text-xl font-bold mt-2 mb-3">Les Fondamentaux du Machine Learning</h3>
-                            <p class="text-gray-600 mb-4">Découvrez les concepts de base de l'apprentissage automatique et ses applications concrètes dans l'industrie technologique.</p>
-                            <span class="text-blue-600 font-medium inline-flex items-center">Lire l'article →</span>
-                        </div>
-                    </a>
-                </article>
+                </div>
             </div>
-        </section>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section id="categories" class="py-12 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-wrap justify-center gap-3">
+                <button class="category-tag bg-purple-100 text-purple-700 px-6 py-2 rounded-full font-medium hover:bg-purple-200">
+                    🤖 IA Agentique
+                </button>
+                <button class="category-tag bg-blue-100 text-blue-700 px-6 py-2 rounded-full font-medium hover:bg-blue-200">
+                    🧠 Machine Learning
+                </button>
+                <button class="category-tag bg-green-100 text-green-700 px-6 py-2 rounded-full font-medium hover:bg-green-200">
+                    🌐 Navigateurs IA
+                </button>
+                <button class="category-tag bg-orange-100 text-orange-700 px-6 py-2 rounded-full font-medium hover:bg-orange-200">
+                    🔒 Cybersécurité
+                </button>
+                <button class="category-tag bg-pink-100 text-pink-700 px-6 py-2 rounded-full font-medium hover:bg-pink-200">
+                    💡 Innovation
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Articles Section -->
+    <main id="articles" class="container mx-auto px-4 py-16">
+        <div class="text-center mb-12">
+            <h2 class="text-4xl font-extrabold text-gray-900 mb-4">
+                Articles Récents
+            </h2>
+            <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                Analyses approfondies et retours d'expérience sur les dernières innovations en IA
+            </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+
+            <!-- Article 1 - Navigateurs Agentiques 2025 -->
+            <article class="article-card bg-white rounded-2xl overflow-hidden shadow-lg">
+                <a href="articles/2025-11-navigateurs-agentiques/" class="block relative">
+                    <div class="relative h-56 overflow-hidden bg-gradient-to-br from-blue-500 to-purple-600">
+                        <img src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=800&q=80"
+                             alt="Navigateurs Agentiques IA"
+                             class="w-full h-full object-cover opacity-90">
+                        <div class="absolute top-4 right-4">
+                            <span class="badge-new text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg">
+                                NOUVEAU
+                            </span>
+                        </div>
+                    </div>
+                    <div class="p-6 relative z-10">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="text-sm font-semibold text-purple-600">17 Nov 2025</span>
+                            <span class="text-gray-300">•</span>
+                            <span class="text-sm text-gray-500">15 min</span>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-3 leading-tight">
+                            Les Navigateurs Agentiques : La Révolution de 2025
+                        </h3>
+                        <p class="text-gray-600 mb-4 line-clamp-3">
+                            Analyse complète des 7 navigateurs qui changent la donne : Comet, Atlas, Dia... Découvrez les notations, avantages et risques de sécurité.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-purple-100 text-purple-700 text-xs px-3 py-1 rounded-full font-medium">IA Agentique</span>
+                            <span class="bg-blue-100 text-blue-700 text-xs px-3 py-1 rounded-full font-medium">Navigateurs</span>
+                            <span class="bg-orange-100 text-orange-700 text-xs px-3 py-1 rounded-full font-medium">Sécurité</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-purple-600 font-bold inline-flex items-center group">
+                                Lire l'article
+                                <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                                </svg>
+                            </span>
+                            <div class="flex items-center text-gray-400 text-sm">
+                                <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path>
+                                    <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"></path>
+                                </svg>
+                                ⭐⭐⭐⭐⭐
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </article>
+
+            <!-- Article 2 - IA Agentique -->
+            <article class="article-card bg-white rounded-2xl overflow-hidden shadow-lg">
+                <a href="articles/2024-06-ere-agentique/" class="block relative">
+                    <div class="relative h-56 overflow-hidden bg-gradient-to-br from-indigo-500 to-blue-600">
+                        <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&q=80"
+                             alt="IA Agentique Robots"
+                             class="w-full h-full object-cover opacity-90">
+                    </div>
+                    <div class="p-6 relative z-10">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="text-sm font-semibold text-purple-600">28 Juin 2024</span>
+                            <span class="text-gray-300">•</span>
+                            <span class="text-sm text-gray-500">18 min</span>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-3 leading-tight">
+                            L'Ère de l'IA Agentique
+                        </h3>
+                        <p class="text-gray-600 mb-4 line-clamp-3">
+                            Comment les agents autonomes redéfinissent notre rapport à la technologie. Analyse du marché, du MCP et des cas d'usage concrets.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-purple-100 text-purple-700 text-xs px-3 py-1 rounded-full font-medium">IA Agentique</span>
+                            <span class="bg-green-100 text-green-700 text-xs px-3 py-1 rounded-full font-medium">MCP</span>
+                            <span class="bg-pink-100 text-pink-700 text-xs px-3 py-1 rounded-full font-medium">Innovation</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-purple-600 font-bold inline-flex items-center group">
+                                Lire l'article
+                                <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                                </svg>
+                            </span>
+                            <div class="flex items-center text-gray-400 text-sm">
+                                <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path>
+                                    <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"></path>
+                                </svg>
+                                📊 Infographie
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </article>
+
+            <!-- Article 3 - ML Fundamentals -->
+            <article class="article-card bg-white rounded-2xl overflow-hidden shadow-lg">
+                <a href="articles/2024-07-fondamentaux-ml/" class="block relative">
+                    <div class="relative h-56 overflow-hidden bg-gradient-to-br from-green-500 to-teal-600">
+                        <img src="https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=800&q=80"
+                             alt="Machine Learning Data"
+                             class="w-full h-full object-cover opacity-90">
+                    </div>
+                    <div class="p-6 relative z-10">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="text-sm font-semibold text-purple-600">15 Juil 2024</span>
+                            <span class="text-gray-300">•</span>
+                            <span class="text-sm text-gray-500">12 min</span>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-3 leading-tight">
+                            Les Fondamentaux du Machine Learning
+                        </h3>
+                        <p class="text-gray-600 mb-4 line-clamp-3">
+                            Découvrez les concepts de base de l'apprentissage automatique et ses applications concrètes dans l'industrie technologique.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-blue-100 text-blue-700 text-xs px-3 py-1 rounded-full font-medium">Machine Learning</span>
+                            <span class="bg-green-100 text-green-700 text-xs px-3 py-1 rounded-full font-medium">Formation</span>
+                            <span class="bg-yellow-100 text-yellow-700 text-xs px-3 py-1 rounded-full font-medium">Fondamentaux</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-purple-600 font-bold inline-flex items-center group">
+                                Lire l'article
+                                <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                                </svg>
+                            </span>
+                            <div class="flex items-center text-gray-400 text-sm">
+                                <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path>
+                                    <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"></path>
+                                </svg>
+                                📚 Tutoriel
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </article>
+
+        </div>
+
+        <!-- Newsletter CTA -->
+        <div class="bg-gradient-to-r from-purple-600 to-blue-500 rounded-2xl p-8 md:p-12 text-white text-center shadow-2xl">
+            <h3 class="text-3xl font-bold mb-4">Restez informé des dernières innovations</h3>
+            <p class="text-lg mb-6 text-purple-100 max-w-2xl mx-auto">
+                Recevez les nouveaux articles et analyses directement dans votre boîte mail
+            </p>
+            <div class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+                <input type="email" placeholder="votre@email.com" class="flex-1 px-6 py-3 rounded-full text-gray-900 focus:outline-none focus:ring-2 focus:ring-white">
+                <button class="bg-white text-purple-600 px-8 py-3 rounded-full font-bold hover:bg-gray-100 transition-all whitespace-nowrap">
+                    S'abonner
+                </button>
+            </div>
+        </div>
+
     </main>
 
-    <footer class="bg-white border-t border-gray-200 py-8">
-        <div class="container mx-auto px-4 text-center text-gray-600">
-            <p>© 2024 Votre Nom. Tous droits réservés.</p>
-            <div class="mt-4 space-x-4">
-                <a href="#" class="hover:text-blue-600">Twitter</a>
-                <a href="#" class="hover:text-blue-600">LinkedIn</a>
-                <a href="#" class="hover:text-blue-600">GitHub</a>
+    <!-- About Section -->
+    <section id="a-propos" class="bg-white py-16">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <h2 class="text-4xl font-bold text-gray-900 mb-6">À Propos</h2>
+                        <div class="prose prose-lg">
+                            <p class="text-gray-600 mb-4">
+                                <strong class="text-gray-900">Pierre de Dobbeleer</strong> est un expert reconnu en <strong>Intelligence Artificielle</strong>, spécialisé dans les systèmes agentiques, l'architecture IA et les transformations digitales.
+                            </p>
+                            <p class="text-gray-600 mb-4">
+                                Fondateur de <strong class="text-purple-600">StratAI</strong>, il accompagne les entreprises dans leur adoption stratégique de l'IA, en équilibrant innovation et sécurité pour des déploiements responsables et performants.
+                            </p>
+                            <div class="flex gap-3 mt-6">
+                                <a href="mailto:contact.stratai@gmail.com" class="bg-purple-600 text-white px-6 py-3 rounded-full font-medium hover:bg-purple-700 transition-all inline-flex items-center">
+                                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                                    </svg>
+                                    Contact
+                                </a>
+                                <a href="https://www.linkedin.com/in/pierre-de-dobbeleer" target="_blank" class="bg-blue-600 text-white px-6 py-3 rounded-full font-medium hover:bg-blue-700 transition-all inline-flex items-center">
+                                    <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                                    </svg>
+                                    LinkedIn
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="relative">
+                        <div class="aspect-square rounded-2xl bg-gradient-to-br from-purple-600 to-blue-500 p-1">
+                            <div class="w-full h-full bg-white rounded-2xl flex items-center justify-center">
+                                <div class="text-center">
+                                    <div class="w-32 h-32 mx-auto mb-4 bg-gradient-to-br from-purple-600 to-blue-500 rounded-full flex items-center justify-center text-white text-6xl font-bold">
+                                        PD
+                                    </div>
+                                    <h3 class="text-2xl font-bold text-gray-900">Pierre de Dobbeleer</h3>
+                                    <p class="text-purple-600 font-medium">Expert en IA</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-300 py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center space-x-3 mb-4">
+                        <div class="w-10 h-10 bg-gradient-to-br from-purple-600 to-blue-500 rounded-lg flex items-center justify-center">
+                            <span class="text-white font-bold text-xl">S</span>
+                        </div>
+                        <span class="text-white font-bold text-xl">StratAI</span>
+                    </div>
+                    <p class="text-sm text-gray-400">
+                        Expertise en Intelligence Artificielle et innovation technologique
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Navigation</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-purple-400 transition-colors">Accueil</a></li>
+                        <li><a href="#articles" class="hover:text-purple-400 transition-colors">Articles</a></li>
+                        <li><a href="#categories" class="hover:text-purple-400 transition-colors">Catégories</a></li>
+                        <li><a href="#a-propos" class="hover:text-purple-400 transition-colors">À propos</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Catégories</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-purple-400 transition-colors">IA Agentique</a></li>
+                        <li><a href="#" class="hover:text-purple-400 transition-colors">Machine Learning</a></li>
+                        <li><a href="#" class="hover:text-purple-400 transition-colors">Navigateurs IA</a></li>
+                        <li><a href="#" class="hover:text-purple-400 transition-colors">Cybersécurité</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Contact</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li>
+                            <a href="mailto:contact.stratai@gmail.com" class="hover:text-purple-400 transition-colors flex items-center">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                                </svg>
+                                contact.stratai@gmail.com
+                            </a>
+                        </li>
+                        <li><a href="#" class="hover:text-purple-400 transition-colors">LinkedIn</a></li>
+                        <li><a href="#" class="hover:text-purple-400 transition-colors">Twitter</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8 text-center text-sm">
+                <p>© 2025 Pierre de Dobbeleer - StratAI. Tous droits réservés.</p>
+                <p class="text-gray-500 mt-2">Analyse et expertise en Intelligence Artificielle</p>
             </div>
         </div>
     </footer>
+
 </body>
 </html>
